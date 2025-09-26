@@ -19,7 +19,7 @@ export const useRedirectChecker = (interval: number = 3000) => {
 
       try {
         const response = await fetch(
-          `http://localhost:3123/check-redirect/${sessionId}`
+          `http://127.0.0.1:3123/check-redirect/${sessionId}`
         );
         const data: RedirectResponse = await response.json();
 

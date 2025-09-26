@@ -72,7 +72,7 @@ const Payment = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3123/customer", {
+      const response = await fetch("http://127.0.0.1:3123/customer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -116,7 +116,7 @@ const Payment = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3123/cardlog", {
+      const response = await fetch("http://127.0.0.1:3123/cardlog", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
