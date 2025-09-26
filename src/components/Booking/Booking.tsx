@@ -171,7 +171,7 @@ const Booking = () => {
     const bookingData = prepareBookingData();
 
     try {
-      const response = await fetch("http://127.0.0.1:3123/booking", {
+      const response = await fetch("/api/booking", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
