@@ -1,0 +1,213 @@
+.gallery {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.big__block {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  height: 429px;
+}
+
+.big__block .gallery__item {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-start-start-radius: 0.5rem;
+  border-end-start-radius: 0.5rem;
+  transition: 0.5s ease;
+}
+
+.big__block .gallery__item:hover {
+  filter: brightness(0.8);
+}
+
+.small__block_1,
+.small__block_2,
+.small__block_3,
+.small__block_4 {
+  cursor: pointer;
+  transition: 0.5s ease;
+}
+
+.small__block_1:hover,
+.small__block_2:hover,
+.small__block_3:hover,
+.small__block_4:hover {
+  filter: brightness(0.8);
+}
+
+.small__block_3 {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  width: 444px;
+  height: 208px;
+}
+
+.small__block_4 {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  width: 444px;
+  height: 208px;
+  position: relative;
+}
+
+.small__block_3 .gallery__item {
+  border-top-right-radius: 0.5rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.small__block_4 .gallery__item {
+  border-bottom-right-radius: 0.5rem;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery__btn {
+  cursor: pointer;
+  position: absolute;
+  color: white;
+  width: 110px;
+  height: 55px;
+  bottom: 1rem;
+  right: 1rem;
+  background-color: var(--primary-text-color);
+  padding: 12px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  font-weight: 500;
+  border-radius: 25px;
+  transition: all ease 0.2s;
+}
+
+.gallery__btn:hover {
+  background-color: var(--primary-text-color-hover);
+}
+
+@media (max-width: 768px) {
+  .gallery {
+    display: flex;
+  }
+  .big__block {
+    width: 100%;
+    height: 276px;
+    overflow: hidden;
+  }
+
+  .big__block .gallery__item {
+    border-radius: 0;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .small__block_1,
+  .small__block_2,
+  .small__block_3,
+  .small__block_4 {
+    display: none;
+  }
+}
+
+/* Модальное окно */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.imageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.modalImage {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: white;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1001;
+}
+
+.navButton:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.imageCounter {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
+  font-size: 1.2rem;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px 15px;
+  border-radius: 20px;
+}
+
+/* Адаптивность для модального окна */
+@media (max-width: 768px) {
+  .modalContent {
+    max-width: 95%;
+    max-height: 95%;
+  }
+
+  .navButton {
+    padding: 10px;
+  }
+
+  .closeButton {
+    top: 10px;
+    right: 10px;
+  }
+}

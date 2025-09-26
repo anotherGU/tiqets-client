@@ -1,0 +1,46 @@
+:root {
+  --primary-text-color: #1d2d53;
+  --primary-text-color-hover: #16213a;
+  --secondary-text-color: #576485;
+  --review-amount-text-color: #007c85;
+  --open-color: #00806f;
+  --button-bg-color: #9c2f86;
+  --border-color: #d3d8e3;
+  --bg-color: #3c4a6d;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: var(--primary-text-color);
+  font-size: 16px;
+  position: relative;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+    padding: 0 15px;
+  }
+}

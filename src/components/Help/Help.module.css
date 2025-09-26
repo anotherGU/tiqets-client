@@ -1,0 +1,125 @@
+.help__wrapper {
+  width: 100%;
+  background-color: white;
+  padding-top: 32px;
+  padding-bottom: 20px;
+  border-top: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.chat {
+  width: 595px;
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  padding: 16px;
+  background-color: #18babd;
+  border-radius: 10px;
+  min-height: 185px;
+  color: white;
+}
+
+.chat svg {
+  width: 120px;
+  height: 120px;
+}
+
+.chat h2 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.chat p {
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.chat button {
+  background-color: #1d2d53;
+  border-radius: 10px;
+  padding: 12px 16px;
+  border: none;
+  color: white;
+  font-size: 16px;
+  width: 130.75px;
+}
+
+.advantages {
+  height: 185px;
+  width: 595px;
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
+  color: #1d2d53;
+}
+
+.advantages h2 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+.advantages ul {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.advantages ul li {
+  list-style: none;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.trust {
+  margin-top: 15px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.trust svg {
+  width: 68px;
+  height: 68px;
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+  .chat {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column-reverse;
+    position: relative;
+  }
+  .chat__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .advantages {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .column {
+    width: 100%;
+  }
+}

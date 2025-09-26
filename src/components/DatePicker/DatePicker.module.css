@@ -1,0 +1,222 @@
+.calendar {
+  width: 100%;
+  border-radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+.monthTitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0;
+  color: #1a1a1a;
+  text-align: center;
+  flex: 1;
+}
+
+.navButton {
+  background-color: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: black !important;
+}
+
+.navButton:hover {
+  background-color: #f0f0f0;
+}
+
+.navButton:active {
+  background-color: #e0e0e0;
+}
+
+.daysHeader {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dayHeader {
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #666;
+  padding: 8px 0;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+
+.dayCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 50px;
+  min-width: 50px;
+  border: 2px solid transparent;
+}
+
+.dayCell:hover:not(.pastDay):not(.otherMonthDay) {
+  background-color: #f5f5f5;
+  border-color: #e0e0e0;
+}
+
+.otherMonthDay {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.otherMonthDay:hover {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.pastDay {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pastDay:hover {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.selectedDay {
+  background-color: #007bff;
+  border-color: #0056b3;
+  color: white;
+}
+
+.selectedDay .dateNumber {
+  color: white;
+  font-weight: 600;
+}
+
+.selectedDay .price {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dateNumber {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #1a1a1a;
+}
+
+.pastDay .dateNumber,
+.pastDay .price {
+  color: #999;
+}
+
+.price {
+  font-size: 0.75rem;
+  color: #666;
+  font-weight: 400;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  padding-top: 16px;
+}
+
+.footerText {
+  font-size: 0.75rem;
+  color: #666;
+}
+
+.currency {
+  font-size: 0.875rem;
+  color: #007bff;
+  font-weight: 500;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .calendar {
+    border-radius: 10px;
+    width: 100%;
+  }
+
+  .title {
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+  }
+
+  .monthTitle {
+    font-size: 1.15rem;
+  }
+
+  .navButton {
+    font-size: 1.4rem;
+  }
+
+  .dayHeader {
+    font-size: 14px;
+  }
+
+  .daysGrid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .daysHeader {
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 10px;
+  }
+
+  .dayCell {
+    min-height: 50px;
+    border-radius: 6px;
+    margin: 0 !important;
+    padding: 0 !important;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .dateNumber {
+    font-size: 0.95rem;
+    margin-bottom: 3px;
+  }
+
+  .price {
+    font-size: 0.7rem;
+  }
+
+  .footer {
+    margin-top: 18px;
+    padding-top: 14px;
+  }
+
+  .footerText {
+    font-size: 0.7rem;
+  }
+
+  .currency {
+    font-size: 0.8rem;
+  }
+}

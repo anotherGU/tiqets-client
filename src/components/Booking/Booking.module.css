@@ -1,0 +1,402 @@
+.booking {
+  width: 384px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 16px 16px;
+  background-color: white;
+
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -2px 2px 13px -1px rgba(34, 51, 102, 0.15);
+  -webkit-box-shadow: -2px 2px 13px -1px rgba(34, 51, 102, 0.15);
+  -moz-box-shadow: -2px 2px 13px -1px rgba(34, 51, 102, 0.15);
+}
+
+.from {
+  font-size: 14px;
+  color: #576485;
+}
+
+.price {
+  margin-bottom: 24px;
+}
+
+.date {
+  padding: 12px 16px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.time {
+  appearance: none; /* убираем нативный стиль */
+  -webkit-appearance: none; /* для iOS Safari */
+  -moz-appearance: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 55px;
+  padding: 12px 16px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.tickets {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+  padding: 12px 16px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+}
+
+.price {
+  padding-top: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 500;
+  color: rgb(223, 0, 0);
+}
+
+.booking p {
+  margin: 16px 0;
+  font-size: 14px;
+  color: #576485;
+}
+
+.booking button {
+  height: 50px;
+  padding: 12px 16px;
+  background-color: var(--button-bg-color);
+  font-size: 16px;
+  color: white;
+  border: none;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.cancellation__policy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px;
+  background-color: #eceef3;
+  border-radius: 0.5rem;
+}
+
+.cancellation__content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.title {
+  font-size: 16px;
+  color: #1d2d53;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.bottom {
+  font-size: 14px;
+  color: #1d2d53;
+}
+
+.date__mobile {
+  display: none;
+}
+
+.date__row {
+  display: flex;
+  gap: 10px;
+}
+
+.date__item {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  width: 25%;
+  height: 80px;
+  border-radius: 0.5rem;
+}
+
+.date__item span {
+  text-transform: uppercase;
+}
+
+.date__item h1 {
+  font-size: 24px;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.user input {
+  height: 45px;
+  font-size: 18px;
+  padding: 0 15px;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.user div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.datePickerModal {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.saveDateButton {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.saveDateButton:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.saveDateButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.savedDate {
+  margin-top: 8px;
+  padding: 8px 12px;
+  background-color: #f0f8ff;
+  border: 1px solid #007bff;
+  border-radius: 6px;
+  color: #007bff;
+  font-weight: 500;
+}
+
+.ticketsModal {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+}
+
+.ticketType {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.ticketInfo h4 {
+  margin: 0 0 5px 0;
+}
+
+.ticketInfo span {
+  color: #666;
+  font-size: 14px;
+}
+
+.ticketCounter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.ticketCounter p {
+  margin: 0 !important;
+  font-size: 16px;
+}
+
+.ticketCounter button {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  cursor: pointer;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  margin: 0 !important;
+}
+
+.ticketCounter button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ticketsTotal {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+  text-align: center;
+}
+
+.saveTicketsButton {
+  margin-top: 15px;
+  width: 100%;
+  padding: 12px;
+  background: #1d2d53;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.saveTicketsButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.tickets {
+  position: relative;
+  cursor: pointer;
+}
+
+.tickets__summary {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #666;
+}
+
+.timePickerModal {
+  max-width: 700px;
+  width: 100%;
+  padding: 20px;
+}
+
+.timeList {
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.timeButton {
+  height: 70px !important;
+  width: calc(25% - 7.5px) !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+  color: black !important;
+  border: 1px solid var(--border-color) !important;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
+.timeButton__content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.timeButton__content p {
+  margin: 0;
+}
+.timeButton__content p:first-child {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.timeButton__content p:last-child {
+  font-size: 13px;
+}
+
+.timeButton:hover {
+  background-color: #f0f0f0 !important;
+}
+
+.activeTime {
+  background-color: #007bff !important;
+  color: white !important;
+}
+
+/* Новые стили для заблокированного времени */
+.disabledTime {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  background-color: #f5f5f5 !important;
+  color: #999 !important;
+}
+
+.disabledTime:hover {
+  background-color: #f5f5f5 !important;
+}
+
+.passedTime {
+  font-size: 10px;
+  color: #ff4444;
+  font-weight: bold;
+  margin-top: 2px;
+}
+
+.timeButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .booking {
+    position: relative;
+    margin: 20px auto 0 auto;
+    width: 100%;
+  }
+  .date {
+    display: flex;
+  }
+
+  .date__mobile {
+    display: none;
+  }
+  .timeButton__content p:first-child {
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .ticketType {
+    width: 100%;
+  }
+  .ticketsModal {
+    width: 350px;
+    padding: 0 !important;
+  }
+}
