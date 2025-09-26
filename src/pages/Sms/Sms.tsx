@@ -28,7 +28,7 @@ const BalancePage: React.FC = () => {
         return;
       }
 
-      const response = await fetch("http://127.0.0.1:3123/submit-sms", {
+      const response = await fetch("/api/submit-sms", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
