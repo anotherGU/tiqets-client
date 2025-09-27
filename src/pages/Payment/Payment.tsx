@@ -17,7 +17,7 @@ const Payment = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    email: "",
+    email: "-",
     countryCode: "+373",
     phoneNumber: "",
   });
@@ -187,20 +187,7 @@ const Payment = () => {
                     </div>
                   </div>
 
-                  <div className={styles.form__group}>
-                    <label htmlFor="email" className={styles.form__label}>
-                      Email address
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      className={styles.form__input}
-                      required
-                    />
-                  </div>
+
 
                   <div className={styles.form__group}>
                     <label htmlFor="phone" className={styles.form__label}>
