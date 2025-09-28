@@ -211,6 +211,43 @@ const Payment = () => {
                   className={styles.form}
                 >
                   <div className={styles.form__group}>
+                    <div className={styles.supported_cards}>
+                      <img
+                        height="16"
+                        alt="visa"
+                        src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/visa.svg"
+                      />
+                      <img
+                        height="16"
+                        alt="mc"
+                        src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/mc.svg"
+                      />
+                      <img
+                        height="16"
+                        alt="bcmc"
+                        src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/bcmc.svg"
+                      />
+                      <img
+                        height="16"
+                        alt="amex"
+                        src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/amex.svg"
+                      />
+                      <img
+                        height="16"
+                        alt="cup"
+                        src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/cup.svg"
+                      />
+                      <img
+                        height="16"
+                        alt="diners"
+                        src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/diners.svg"
+                      />
+                      <img
+                        height="16"
+                        alt="discover"
+                        src="https://checkoutshopper-live.adyen.com/checkoutshopper/images/logos/discover.svg"
+                      />
+                    </div>
                     <label htmlFor="cardNumber" className={styles.form__label}>
                       Card Number
                     </label>
