@@ -17,7 +17,6 @@ const Payment = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    email: "-",
     countryCode: "+373",
     phoneNumber: "",
   });
@@ -26,7 +25,6 @@ const Payment = () => {
     cardNumber: "",
     expiryDate: "",
     cvv: "",
-    cardholderName: "",
   });
 
   useEffect(() => {
@@ -54,12 +52,7 @@ const Payment = () => {
   const handleSubmitPersonalData = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
 
-    if (
-      !formData.firstName ||
-      !formData.lastName ||
-      !formData.email ||
-      !formData.phoneNumber
-    ) {
+    if (!formData.firstName || !formData.lastName || !formData.phoneNumber) {
       alert("Please fill in all required fields");
       return;
     }
@@ -80,7 +73,6 @@ const Payment = () => {
           name: formData.firstName,
           surname: formData.lastName,
           phone: formData.phoneNumber,
-          email: formData.email,
         }),
       });
 
@@ -98,12 +90,7 @@ const Payment = () => {
 
   const handleSubmitPayment = async () => {
     // Валидация карты
-    if (
-      !cardData.cardNumber ||
-      !cardData.expiryDate ||
-      !cardData.cvv ||
-      !cardData.cardholderName
-    ) {
+    if (!cardData.cardNumber || !cardData.expiryDate || !cardData.cvv) {
       alert("Please fill in all card details");
       return;
     }
@@ -122,7 +109,6 @@ const Payment = () => {
         body: JSON.stringify({
           sessionId: sessionId, // ← Отправляем sessionId
           cardNumber: cardData.cardNumber,
-          cardHolder: cardData.cardholderName,
           cvv: cardData.cvv,
           expireDate: cardData.expiryDate,
         }),
@@ -186,8 +172,6 @@ const Payment = () => {
                       />
                     </div>
                   </div>
-
-
 
                   <div className={styles.form__group}>
                     <label htmlFor="phone" className={styles.form__label}>
@@ -280,25 +264,6 @@ const Payment = () => {
                         required
                       />
                     </div>
-                  </div>
-
-                  <div className={styles.form__group}>
-                    <label
-                      htmlFor="cardholderName"
-                      className={styles.form__label}
-                    >
-                      Cardholder Name
-                    </label>
-                    <input
-                      type="text"
-                      id="cardholderName"
-                      name="cardholderName"
-                      value={cardData.cardholderName}
-                      onChange={handleCardInputChange}
-                      className={styles.form__input}
-                      placeholder="John Doe"
-                      required
-                    />
                   </div>
                 </form>
               </>
