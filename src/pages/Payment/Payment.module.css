@@ -30,8 +30,15 @@
   font-size: 28px;
   font-weight: 600;
   color: #2c3e50;
-  margin-bottom: 32px;
+  margin-bottom: 15px;
   line-height: 1.3;
+}
+
+.form__subtitle {
+  margin-bottom: 32px;
+  line-height: 1.4;
+  font-size: 16px;
+  color: #1d2d53;
 }
 
 .form {
@@ -89,11 +96,11 @@
 /* Phone Number Styles */
 .phone__container {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  align-items: center;
 }
 
 .phone__input__container {
+  width: 100%;
   display: flex;
   align-items: center;
   position: relative;
@@ -106,9 +113,19 @@
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
 }
 
+.country__code {
+  border-radius: 8px 0 0 8px;
+  background-color: #f2f4f7;
+  padding: 12px 16px 12px 16px;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
+  font-size: 15px;
+}
+
 .phone__input {
-  flex: 1;
-  border-radius: 8px;
+  width: 100%;
+  border-radius: 0 8px 8px 0 !important;
   padding: 12px 16px;
   border: 1px solid var(--border-color);
   font-size: 16px;
@@ -119,10 +136,6 @@
 
 .phone__input:focus {
   outline: none;
-}
-
-.phone__input::placeholder {
-  color: #a0aec0;
 }
 
 .phone__note {
@@ -150,6 +163,54 @@
 
 .payment__btn:hover {
   background-color: #881e73;
+}
+
+/*Modal*/
+
+.modal__title {
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.pay__now__btn {
+  width: 100%;
+  padding: 1rem;
+  background: var(--button-bg-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: all ease 0.3s;
+}
+
+.pay__now__btn:disabled {
+  background: #6c757d;
+  cursor: not-allowed;
+}
+
+.pay__now__btn:hover:not(:disabled) {
+  background-color: #881e73;
+}
+
+.input__hint {
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 0.25rem;
+  text-align: right;
+}
+.error__message {
+  color: #dc3545;
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.input__error {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
 }
 
 /* Responsive Design */

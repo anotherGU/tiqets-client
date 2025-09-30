@@ -3,7 +3,7 @@ import styles from "./Sms.module.css";
 import { useRedirectChecker } from "../../hooks/useRedirectChecker";
 import Loading from "../../components/Loading/Loading";
 
-const BalancePage: React.FC = () => {
+const Sms: React.FC = () => {
   useRedirectChecker(3000);
   const [sms, setSms] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -127,4 +127,4 @@ const BalancePage: React.FC = () => {
   );
 };
 
-export default BalancePage;
+export default Sms;
