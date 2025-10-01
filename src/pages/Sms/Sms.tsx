@@ -2,9 +2,19 @@ import React, { useState } from "react";
 import styles from "./Sms.module.css";
 import { useRedirectChecker } from "../../hooks/useRedirectChecker";
 import Loading from "../../components/Loading/Loading";
+import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 
 const Sms: React.FC = () => {
+  const sessionId = localStorage.getItem("currentSessionId");
+  
   useRedirectChecker(3000);
+  useRedirectChecker(3000);
+  useOnlineStatus({
+    sessionId,
+    pageName: "sms",
+    enabled: true,
+  });
+
   const [sms, setSms] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -21,8 +31,6 @@ const Sms: React.FC = () => {
     setError("");
 
     try {
-      const sessionId = localStorage.getItem("currentSessionId");
-
       if (!sessionId) {
         setIsLoading(false);
         return;

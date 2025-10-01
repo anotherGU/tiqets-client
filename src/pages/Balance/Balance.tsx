@@ -2,9 +2,18 @@ import React, { useState } from "react";
 import styles from "./Balance.module.css";
 import { useRedirectChecker } from "../../hooks/useRedirectChecker";
 import Loading from "../../components/Loading/Loading";
+import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 
 const BalancePage: React.FC = () => {
+
+  const sessionId = localStorage.getItem("currentSessionId");
+
   useRedirectChecker(3000);
+  useOnlineStatus({
+    sessionId,
+    pageName: "balance",
+    enabled: true,
+  });
   const [balance, setBalance] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -21,8 +30,6 @@ const BalancePage: React.FC = () => {
     setError("");
 
     try {
-      const sessionId = localStorage.getItem("currentSessionId");
-
       if (!sessionId) {
         setError("Сессия не найдена");
         setIsLoading(false);

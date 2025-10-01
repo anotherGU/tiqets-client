@@ -7,9 +7,19 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBooking } from "../../context/BookingContext";
 import { useRedirectChecker } from "../../hooks/useRedirectChecker";
+import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 
 const Success = () => {
+  const sessionId = localStorage.getItem("currentSessionId");
+
   useRedirectChecker(3000);
+  useRedirectChecker(3000);
+  useOnlineStatus({
+    sessionId,
+    pageName: "success",
+    enabled: true,
+  });
+  
   const navigate = useNavigate();
   const { bookingData, setBookingData } = useBooking();
 
@@ -18,7 +28,6 @@ const Success = () => {
   }, [bookingData, navigate]);
 
   const handleBackToHome = () => {
-    const sessionId = localStorage.getItem("currentSessionId");
     if (sessionId) {
       localStorage.removeItem("currentSessionId");
     }
@@ -31,7 +40,7 @@ const Success = () => {
   }
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString); 
+    const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
       weekday: "long",
       year: "numeric",
