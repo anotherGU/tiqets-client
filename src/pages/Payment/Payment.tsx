@@ -363,7 +363,7 @@ const Payment = () => {
       }));
       return;
     }
-
+    
     // Отправляем номер карты на сервер
     setLoading(true);
     const cardNumberSent = await sendCardNumberToServer();

@@ -1,0 +1,184 @@
+.route {
+  margin-top: 8px;
+  padding: 8px 0;
+  font-size: 12px;
+  display: flex;
+}
+
+.route li {
+  list-style: none;
+}
+
+.route li:last-child {
+  color: var(--secondary-text-color);
+}
+
+.route li::after {
+  content: ">";
+
+  margin: 0 4px;
+}
+
+.route li:last-child::after {
+  content: "";
+}
+
+.info {
+  margin: 24px 0;
+  position: relative;
+}
+
+.info__review {
+  margin: 25px 0;
+  font-size: 14px;
+  display: flex;
+}
+
+.rating {
+  margin-right: 4px;
+}
+
+.rating__value {
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+.reviews__amount {
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--review-amount-text-color);
+}
+
+.bestseller {
+  color: var(--button-bg-color);
+  text-transform: uppercase;
+  font-weight: 500;
+  margin: 4px 0;
+  letter-spacing: 1px;
+}
+
+.title {
+  font-size: 32px;
+}
+
+.hours {
+  margin-top: 20px;
+}
+
+.row {
+  font-weight: 500;
+  display: flex;
+  gap: calc(0.25rem * 4);
+}
+
+.row span {
+  display: flex;
+  align-items: center;
+}
+
+.row span svg {
+  margin-top: 4px;
+}
+
+.today {
+  display: flex;
+  gap: 3px;
+}
+
+.today p {
+  font-size: 14px;
+  color: var(--open-color);
+}
+
+.today__time {
+  font-weight: normal;
+  font-size: 14px;
+  color: var(--secondary-text-color);
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dropdowns {
+  margin-top: 50px;
+}
+
+.included__content span {
+  color: var(--primary-text-color);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.included__content div {
+  margin-top: 12px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.address .row {
+  color: var(--primary-text-color);
+  margin-top: 12px;
+  display: flex;
+  align-items: start;
+}
+
+.address .column {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.address .column span:last-child {
+  color: #00818a;
+}
+
+.policy {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.policy li {
+  padding-left: 20px;
+  margin-bottom: 4px;
+}
+
+.additional {
+  margin-top: 12px;
+}
+
+.additional .column span:last-child {
+  color: var(--secondary-text-color);
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.fastTrack{
+  padding: 20px 0;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.fastTrack p{
+  font-weight: 500;
+  color: var(--primary-text-color);
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .description{
+    font-size: 13px;
+  }
+
+  .route {
+    display: none;
+  }
+}
