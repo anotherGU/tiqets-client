@@ -99,9 +99,9 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
             <div className={styles.child}>
               <div className={styles.eminem}>
                 <p className={styles.quantity}>{tickets.child}</p>
-                <p>Child (AED 62.00)</p>
+                <p>Child (AED 49.00)</p>
               </div>
-              <p className={styles.amount}> AED {tickets.child * 62}.00</p>
+              <p className={styles.amount}> AED {tickets.child * 49}.00</p>
             </div>
           </div>
           <div className={styles.total__footer}>

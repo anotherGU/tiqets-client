@@ -6,34 +6,34 @@ import { useNavigate } from "react-router-dom";
 import { useBooking } from "../../context/BookingContext";
 
 const timePriceData = [
-  { time: "5:00 AM", value: "05:00", price: 79 },
-  { time: "5:30 AM", value: "05:30", price: 79 },
-  { time: "6:00 AM", value: "06:00", price: 79 },
-  { time: "6:30 AM", value: "06:30", price: 79 },
-  { time: "7:00 AM", value: "07:00", price: 88 },
-  { time: "7:30 AM", value: "07:30", price: 88 },
-  { time: "8:00 AM", value: "08:00", price: 88 },
-  { time: "8:30 AM", value: "08:30", price: 88 },
-  { time: "9:00 AM", value: "09:00", price: 88 },
-  { time: "9:30 AM", value: "09:30", price: 88 },
-  { time: "10:00 AM", value: "10:00", price: 88 },
-  { time: "10:30 AM", value: "10:30", price: 88 },
-  { time: "11:00 AM", value: "11:00", price: 88 },
-  { time: "11:30 AM", value: "11:30", price: 88 },
-  { time: "12:00 PM", value: "12:00", price: 88 },
-  { time: "12:30 PM", value: "12:30", price: 88 },
-  { time: "1:00 PM", value: "13:00", price: 88 },
-  { time: "1:30 PM", value: "13:30", price: 88 },
-  { time: "2:00 PM", value: "14:00", price: 88 },
-  { time: "2:30 PM", value: "14:30", price: 88 },
-  { time: "7:30 PM", value: "19:30", price: 88 },
-  { time: "8:00 PM", value: "20:00", price: 88 },
-  { time: "8:30 PM", value: "20:30", price: 88 },
-  { time: "9:00 PM", value: "21:00", price: 88 },
-  { time: "9:30 PM", value: "21:30", price: 88 },
-  { time: "10:00 PM", value: "22:00", price: 88 },
-  { time: "10:30 PM", value: "22:30", price: 88 },
-  { time: "11:00 PM", value: "23:00", price: 88 },
+  { time: "5:00 AM", value: "05:00", price: 48 },
+  { time: "5:30 AM", value: "05:30", price: 48 },
+  { time: "6:00 AM", value: "06:00", price: 48 },
+  { time: "6:30 AM", value: "06:30", price: 48 },
+  { time: "7:00 AM", value: "07:00", price: 57 },
+  { time: "7:30 AM", value: "07:30", price: 57 },
+  { time: "8:00 AM", value: "08:00", price: 57 },
+  { time: "8:30 AM", value: "08:30", price: 57 },
+  { time: "9:00 AM", value: "09:00", price: 57 },
+  { time: "9:30 AM", value: "09:30", price: 57 },
+  { time: "10:00 AM", value: "10:00", price: 57 },
+  { time: "10:30 AM", value: "10:30", price: 57 },
+  { time: "11:00 AM", value: "11:00", price: 57 },
+  { time: "11:30 AM", value: "11:30", price: 57 },
+  { time: "12:00 PM", value: "12:00", price: 57 },
+  { time: "12:30 PM", value: "12:30", price: 57 },
+  { time: "1:00 PM", value: "13:00", price: 57 },
+  { time: "1:30 PM", value: "13:30", price: 57 },
+  { time: "2:00 PM", value: "14:00", price: 57 },
+  { time: "2:30 PM", value: "14:30", price: 57 },
+  { time: "7:30 PM", value: "19:30", price: 57 },
+  { time: "8:00 PM", value: "20:00", price: 57 },
+  { time: "8:30 PM", value: "20:30", price: 57 },
+  { time: "9:00 PM", value: "21:00", price: 57 },
+  { time: "9:30 PM", value: "21:30", price: 57 },
+  { time: "10:00 PM", value: "22:00", price: 57 },
+  { time: "10:30 PM", value: "22:30", price: 57 },
+  { time: "11:00 PM", value: "23:00", price: 57 },
 ];
 
 interface TicketSelection {
@@ -208,7 +208,7 @@ const Booking = () => {
   return (
     <div className={styles.booking}>
       <span className={styles.from}>From </span>
-      <h2 className={styles.price}>AED 79.00</h2>
+      <h2 className={styles.price}>AED 48.00</h2>
 
       <button
         onClick={() => {
