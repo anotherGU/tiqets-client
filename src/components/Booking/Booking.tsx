@@ -213,7 +213,7 @@ const Booking = () => {
           setStep(1);
         }}
       >
-        Check Availability
+        BUY NOW!
       </button>
 
       <div className={styles.cancellation__policy}>
