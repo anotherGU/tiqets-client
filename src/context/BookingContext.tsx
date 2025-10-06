@@ -9,11 +9,6 @@ interface BookingData {
   sessionId?: string;
   bookingId?: string;
   date: string;
-  time: {
-    time: string;
-    value: string;
-    price: number;
-  } | null;
   tickets: TicketSelection;
   totalPrice: number;
 }
@@ -25,7 +20,11 @@ interface BookingContextType {
 
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
-export const BookingProvider = ({ children }: { children: React.ReactNode }) => {
+export const BookingProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   const [bookingData, setBookingData] = useState<BookingData | null>(null);
 
   return (
