@@ -108,7 +108,7 @@ const Booking = () => {
   // ======= UTILS =======
   const calculateTotalPrice = (): number => {
     const adultPrice = 48;
-    const childPrice = 48;
+    const childPrice = 38;
     return (
       selectedTickets.adult * adultPrice + selectedTickets.child * childPrice
     );
@@ -327,7 +327,7 @@ const Booking = () => {
             <div className={styles.ticketType}>
               <div className={styles.ticketInfo}>
                 <h4>Child (3-12 years)</h4>
-                <span>AED 48</span>
+                <span>AED 38</span>
               </div>
               <div className={styles.ticketCounter}>
                 <button
