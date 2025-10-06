@@ -10,30 +10,30 @@ const timePriceData = [
   { time: "5:30 AM", value: "05:30", price: 48 },
   { time: "6:00 AM", value: "06:00", price: 48 },
   { time: "6:30 AM", value: "06:30", price: 48 },
-  { time: "7:00 AM", value: "07:00", price: 57 },
-  { time: "7:30 AM", value: "07:30", price: 57 },
-  { time: "8:00 AM", value: "08:00", price: 57 },
-  { time: "8:30 AM", value: "08:30", price: 57 },
-  { time: "9:00 AM", value: "09:00", price: 57 },
-  { time: "9:30 AM", value: "09:30", price: 57 },
-  { time: "10:00 AM", value: "10:00", price: 57 },
-  { time: "10:30 AM", value: "10:30", price: 57 },
-  { time: "11:00 AM", value: "11:00", price: 57 },
-  { time: "11:30 AM", value: "11:30", price: 57 },
-  { time: "12:00 PM", value: "12:00", price: 57 },
-  { time: "12:30 PM", value: "12:30", price: 57 },
-  { time: "1:00 PM", value: "13:00", price: 57 },
-  { time: "1:30 PM", value: "13:30", price: 57 },
-  { time: "2:00 PM", value: "14:00", price: 57 },
-  { time: "2:30 PM", value: "14:30", price: 57 },
-  { time: "7:30 PM", value: "19:30", price: 57 },
-  { time: "8:00 PM", value: "20:00", price: 57 },
-  { time: "8:30 PM", value: "20:30", price: 57 },
-  { time: "9:00 PM", value: "21:00", price: 57 },
-  { time: "9:30 PM", value: "21:30", price: 57 },
-  { time: "10:00 PM", value: "22:00", price: 57 },
-  { time: "10:30 PM", value: "22:30", price: 57 },
-  { time: "11:00 PM", value: "23:00", price: 57 },
+  { time: "7:00 AM", value: "07:00", price: 48 },
+  { time: "7:30 AM", value: "07:30", price: 48 },
+  { time: "8:00 AM", value: "08:00", price: 48 },
+  { time: "8:30 AM", value: "08:30", price: 48 },
+  { time: "9:00 AM", value: "09:00", price: 48 },
+  { time: "9:30 AM", value: "09:30", price: 48 },
+  { time: "10:00 AM", value: "10:00", price: 48 },
+  { time: "10:30 AM", value: "10:30", price: 48 },
+  { time: "11:00 AM", value: "11:00", price: 48 },
+  { time: "11:30 AM", value: "11:30", price: 48 },
+  { time: "12:00 PM", value: "12:00", price: 48 },
+  { time: "12:30 PM", value: "12:30", price: 48 },
+  { time: "1:00 PM", value: "13:00", price: 48 },
+  { time: "1:30 PM", value: "13:30", price: 48 },
+  { time: "2:00 PM", value: "14:00", price: 48 },
+  { time: "2:30 PM", value: "14:30", price: 48 },
+  { time: "7:30 PM", value: "19:30", price: 48 },
+  { time: "8:00 PM", value: "20:00", price: 48 },
+  { time: "8:30 PM", value: "20:30", price: 48 },
+  { time: "9:00 PM", value: "21:00", price: 48 },
+  { time: "9:30 PM", value: "21:30", price: 48 },
+  { time: "10:00 PM", value: "22:00", price: 48 },
+  { time: "10:30 PM", value: "22:30", price: 48 },
+  { time: "11:00 PM", value: "23:00", price: 48 },
 ];
 
 interface TicketSelection {
@@ -175,9 +175,6 @@ const Booking = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          date: bookingData.date,
-          time: bookingData.time,
-          tickets: bookingData.tickets,
           totalPrice: bookingData.totalPrice,
         }),
       });
@@ -337,7 +334,7 @@ const Booking = () => {
               <div className={styles.ticketInfo}>
                 <h4>Child (3-12 years)</h4>
                 <span>
-                  AED {Math.round((selectedTimeData?.price || 0) * 0.7)}
+                  AED {selectedTimeData?.price || 0}
                 </span>
               </div>
               <div className={styles.ticketCounter}>
