@@ -96,14 +96,14 @@ const Success = () => {
                   </span>
                 </div>
 
-                {bookingData.time && (
+                {/* {bookingData.time && (
                   <div className={styles.detail__row}>
                     <span className={styles.detail__label}>Time:</span>
                     <span className={styles.detail__value}>
                       {bookingData.time.time}
                     </span>
                   </div>
-                )}
+                )} */}
 
                 <div className={styles.detail__row}>
                   <span className={styles.detail__label}>Tickets:</span>
@@ -154,12 +154,12 @@ const Success = () => {
                     E-tickets have been sent to your email. Present the QR code
                     at the entrance.
                   </p>
-                  {bookingData.time && (
+                  {/* {bookingData.time && (
                     <p className={styles.arrival__note}>
                       Please arrive 15 minutes before your scheduled time:{" "}
                       <strong>{bookingData.time.time}</strong>
                     </p>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
@@ -172,11 +172,11 @@ const Success = () => {
               <li>Save the tickets on your phone or print them</li>
               <li>Arrive 15 minutes before your scheduled time</li>
               <li>Present your ID along with the tickets</li>
-              {bookingData.time && (
+              {/* {bookingData.time && (
                 <li>
                   Your fast-track entry is valid for {bookingData.time.time}
                 </li>
-              )}
+              )} */}
             </ul>
           </div>
 
