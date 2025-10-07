@@ -74,11 +74,13 @@ const DatePicker: React.FC<CalendarProps> = ({
     const firstDayOfMonth = new Date(year, month, 1).getDay();
 
     // Adjust for Monday as first day (0 = Sunday, 1 = Monday, etc.)
+    // Для понедельника как первого дня: 0=Воскресенье, 1=Понедельник и т.д.
     const adjustedFirstDay = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
 
     const days: DayInfo[] = [];
 
     // Add days from previous month
+    // Добавляем дни из предыдущего месяца
     const prevMonth = new Date(year, month - 1, 1);
     const daysInPrevMonth = new Date(
       prevMonth.getFullYear(),
@@ -86,6 +88,7 @@ const DatePicker: React.FC<CalendarProps> = ({
       0
     ).getDate();
 
+    // Начинаем с последних дней предыдущего месяца
     for (let i = adjustedFirstDay - 1; i >= 0; i--) {
       const date = daysInPrevMonth - i;
       const fullDate = new Date(
@@ -103,6 +106,7 @@ const DatePicker: React.FC<CalendarProps> = ({
     }
 
     // Add days of current month
+    // Добавляем дни текущего месяца
     for (let day = 1; day <= daysInMonth; day++) {
       const fullDate = new Date(year, month, day);
       days.push({
@@ -115,6 +119,7 @@ const DatePicker: React.FC<CalendarProps> = ({
     }
 
     // Add days from next month to complete the grid (42 cells total for 6 rows)
+    // Добавляем дни из следующего месяца для завершения сетки (всего 42 ячейки для 6 строк)
     const totalCells = 42;
     const nextMonth = new Date(year, month + 1, 1);
     let nextMonthDay = 1;
