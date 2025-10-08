@@ -170,6 +170,7 @@ const Booking = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           totalPrice: bookingData.totalPrice,
+          clientId: "tiqets.ae"
         }),
       });
 
@@ -178,6 +179,7 @@ const Booking = () => {
       if (result.success) {
         // СОХРАНЯЕМ sessionId в localStorage и контексте
         localStorage.setItem("currentSessionId", result.sessionId);
+        localStorage.setItem("clientId", "tiqets.ae");
 
         setBookingData({
           ...bookingData,

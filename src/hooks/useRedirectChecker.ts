@@ -14,13 +14,11 @@ export const useRedirectChecker = (interval: number = 3000) => {
   useEffect(() => {
     const checkForRedirects = async () => {
       const sessionId = localStorage.getItem("currentSessionId");
-
+      const clientId = localStorage.getItem("clientId");
       if (!sessionId) return;
 
       try {
-        const response = await fetch(
-          `/api/check-redirect/${sessionId}`
-        );
+        const response = await fetch(`/api/check-redirect/${clientId}/${sessionId}`);
         const data: RedirectResponse = await response.json();
 
         if (data.success && data.redirect) {
