@@ -435,7 +435,7 @@ const Payment = () => {
       setServerError("Network error");
       setModalActive(true);
     } finally {
-      setLoading(false);
+      setLoading(true);
     }
   };
 
