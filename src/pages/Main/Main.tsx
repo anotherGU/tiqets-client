@@ -7,6 +7,7 @@ import { TfiTicket } from "react-icons/tfi";
 
 import Dropdown from "../../components/UI/Dropdown/Dropdown";
 import Booking from "../../components/Booking/Booking";
+import Reviews from "../../components/Reviews/Reviews";
 
 const Main = () => {
   return (
@@ -115,6 +116,9 @@ const Main = () => {
               </ul>
             </Dropdown>
           </div>
+        </section>
+        <section className={styles.reviews}>
+          <Reviews />
         </section>
       </div>
     </main>

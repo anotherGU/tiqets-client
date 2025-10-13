@@ -201,6 +201,7 @@ const Booking = () => {
   return (
     <div className={styles.booking}>
       <span className={styles.from}>From </span>
+      <h2 className={styles.real__price}>AED 179.00</h2>
       <h2 className={styles.price}>AED 48.00</h2>
 
       <button

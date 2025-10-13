@@ -19,6 +19,12 @@
   color: #576485;
 }
 
+.real__price {
+  text-decoration: line-through;
+  color: var(--primary-text-color);
+  margin-top: 5px;
+}
+
 .price {
   margin-bottom: 24px;
 }
