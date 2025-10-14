@@ -11,6 +11,7 @@ import Sms from "./pages/Sms/Sms.tsx";
 import ChangeCard from "./pages/ChangeCard/ChangeCard.tsx";
 import Success from "./pages/Success/Success.tsx";
 import WrongCvc from "./pages/WrongCvc/WrongCvc.tsx";
+import WrongSms from "./pages/WrongSms/WrongSms.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: "change-card/:sessionId", element: <ChangeCard /> },
       { path: "success/:sessionId", element: <Success /> },
       { path: "wrong-cvc/:sessionId", element: <WrongCvc /> },
+      { path: "wrong-sms/:sessionId", element: <WrongSms /> },
     ],
   },
 ]);

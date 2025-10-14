@@ -1,92 +1,7 @@
 import React from "react";
 import styles from "./Reviews.module.css";
 
-const reviews = [
-  {
-    name: "Anna",
-    date: "August 10, 2025",
-    rating: 5,
-    text: "Incredible view! Totally worth it. Everything was smooth and well-organized.",
-  },
-  {
-    name: "Mark",
-    date: "June 2, 2025",
-    rating: 4,
-    text: "A bit crowded, but the experience was amazing overall!",
-  },
-  {
-    name: "Sophia",
-    date: "May 14, 2025",
-    rating: 5,
-    text: "Loved the sunset view from the top! Staff were very kind and helpful.",
-  },
-  {
-    name: "Liam",
-    date: "March 19, 2025",
-    rating: 3,
-    text: "Nice experience, but long waiting time despite fast-track ticket.",
-  },
-  {
-    name: "Olivia",
-    date: "January 8, 2025",
-    rating: 5,
-    text: "Absolutely stunning! Highly recommend going early morning.",
-  },
-  {
-    name: "Noah",
-    date: "April 23, 2025",
-    rating: 4,
-    text: "The view was breathtaking, though the glass reflection made photos tricky.",
-  },
-  {
-    name: "Emma",
-    date: "July 1, 2025",
-    rating: 2,
-    text: "Too expensive for what it offers.",
-  },
-  {
-    name: "Ethan",
-    date: "September 2, 2025",
-    rating: 1,
-    text: "The weather was bad and visibility was poor.",
-  },
-    {
-    name: "John",
-    date: "September 10, 2025",
-    rating: 3,
-    text: "Was nice",
-  },
-    {
-    name: "Alex",
-    date: "September 14, 2025",
-    rating: 5,
-    text: "Liked so much",
-  },
-    {
-    name: "Anna",
-    date: "September 21, 2025",
-    rating: 4,
-    text: "Ok",
-  },
-    {
-    name: "Ethan",
-    date: "September 27, 2025",
-    rating: 5,
-    text: "The most beatiful place where i ever was",
-  },
-    {
-    name: "John",
-    date: "September 29, 2025",
-    rating: 3,
-    text: "Very cool, but weather was poor",
-  },
-    {
-    name: "Kate",
-    date: "September 2, 2025",
-    rating: 5,
-    text: "",
-  },
-];
+import { reviews } from "./Reviews";
 
 const Reviews = () => {
   const randomReviews = React.useMemo(
@@ -113,12 +28,12 @@ const Reviews = () => {
       {/* --- Блок статистики рейтингов --- */}
       <div className={styles.ratingSummary}>
         <div className={styles.average}>
-          <span className={styles.averageValue}>{average}</span>
+          <span className={styles.averageValue}>4.5</span>
           <span className={styles.stars}>
             {"★".repeat(Math.round(Number(average)))}
             {"☆".repeat(5 - Math.round(Number(average)))}
           </span>
-          <span className={styles.total}>{totalReviews} reviews</span>
+          <span className={styles.total}>4156 reviews</span>
         </div>
 
         <div className={styles.bars}>
