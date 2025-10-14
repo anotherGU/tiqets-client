@@ -26,7 +26,7 @@ const Main = () => {
       <Banner
         isOpen={isBannerOpen}
         onClose={handleCloseBanner}
-        imageUrl="/assets/main/photo_2025-10-14_21-39-27.jpg" 
+        imageUrl="/assets/main/hell_photo_2025-10-15_00-08-47.jpg" 
       />
       <div className="container">
         <ul className={styles.route}>
