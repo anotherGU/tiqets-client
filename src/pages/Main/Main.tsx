@@ -8,10 +8,26 @@ import { TfiTicket } from "react-icons/tfi";
 import Dropdown from "../../components/UI/Dropdown/Dropdown";
 import Booking from "../../components/Booking/Booking";
 import Reviews from "../../components/Reviews/Reviews";
+import { useEffect, useState } from "react";
+import Banner from "../../components/UI/Banner/Banner";
 
 const Main = () => {
+  const [isBannerOpen, setIsBannerOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsBannerOpen(true);
+  }, []);
+
+  const handleCloseBanner = () => {
+    setIsBannerOpen(false);
+  };
   return (
     <main>
+      <Banner
+        isOpen={isBannerOpen}
+        onClose={handleCloseBanner}
+        imageUrl="/assets/main/photo_2025-10-14_21-39-27.jpg" 
+      />
       <div className="container">
         <ul className={styles.route}>
           <li> United Arab Emirates </li>
