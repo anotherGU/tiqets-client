@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Reviews.module.css";
 
-import { reviews } from "./Reviews";
+import { reviews } from "./ReviewsData"
 
 const Reviews = () => {
   const randomReviews = React.useMemo(

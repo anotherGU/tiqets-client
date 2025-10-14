@@ -1,5 +1,5 @@
 // reviewsData.ts
-export const reviews = [
+ export const reviews = [
   {
     name: "Anna",
     date: "August 10, 2025",
