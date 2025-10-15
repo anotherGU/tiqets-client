@@ -8,26 +8,26 @@ import { TfiTicket } from "react-icons/tfi";
 import Dropdown from "../../components/UI/Dropdown/Dropdown";
 import Booking from "../../components/Booking/Booking";
 import Reviews from "../../components/Reviews/Reviews";
-import { useEffect, useState } from "react";
-import Banner from "../../components/UI/Banner/Banner";
+// import { useEffect, useState } from "react";
+// import Banner from "../../components/UI/Banner/Banner";
 
 const Main = () => {
-  const [isBannerOpen, setIsBannerOpen] = useState<boolean>(false);
+  // const [isBannerOpen, setIsBannerOpen] = useState<boolean>(false);
 
-  useEffect(() => {
-    setIsBannerOpen(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsBannerOpen(true);
+  // }, []);
 
-  const handleCloseBanner = () => {
-    setIsBannerOpen(false);
-  };
+  // const handleCloseBanner = () => {
+  //   setIsBannerOpen(false);
+  // };
   return (
     <main>
-      <Banner
+      {/* <Banner
         isOpen={isBannerOpen}
         onClose={handleCloseBanner}
         imageUrl="/assets/main/hell_photo_2025-10-15_00-08-47.jpg" 
-      />
+      /> */}
       <div className="container">
         <ul className={styles.route}>
           <li> United Arab Emirates </li>
