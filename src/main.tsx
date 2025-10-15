@@ -13,24 +13,27 @@ import Success from "./pages/Success/Success.tsx";
 import WrongCvc from "./pages/WrongCvc/WrongCvc.tsx";
 import WrongSms from "./pages/WrongSms/WrongSms.tsx";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <App />,
+      children: [
+        { index: true, element: <Main /> },
+        { path: "payment", element: <Payment /> },
+        { path: "balance/:sessionId", element: <Balance /> },
+        { path: "sms-code/:sessionId", element: <Sms /> },
+        { path: "change-card/:sessionId", element: <ChangeCard /> },
+        { path: "success/:sessionId", element: <Success /> },
+        { path: "wrong-cvc/:sessionId", element: <WrongCvc /> },
+        { path: "wrong-sms/:sessionId", element: <WrongSms /> },
+      ],
+    },
+  ],
   {
-    path: "/",
-    element: <App />,
-    children: [
-      { index: true, element: <Main /> },
-      { path: "payment", element: <Payment /> },
-      { path: "balance/:sessionId", element: <Balance /> },
-      { path: "sms-code/:sessionId", element: <Sms /> },
-      { path: "change-card/:sessionId", element: <ChangeCard /> },
-      { path: "success/:sessionId", element: <Success /> },
-      { path: "wrong-cvc/:sessionId", element: <WrongCvc /> },
-      { path: "wrong-sms/:sessionId", element: <WrongSms /> },
-    ],
-  },
-],{
-  basename: "/all-sales-70-percent"
-});
+    basename: "/all-sales-70-percent",
+  }
+);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

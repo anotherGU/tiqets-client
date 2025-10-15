@@ -8,16 +8,31 @@ import { useRedirectChecker } from "../../hooks/useRedirectChecker";
 import Loading from "../../components/Loading/Loading";
 import Modal from "../../components/UI/Modal/Modal";
 import { useOnlineStatus } from "../../hooks/useOnlineStatus";
+import { useBooking } from "../../context/BookingContext";
 
 const Payment = () => {
   const sessionId = localStorage.getItem("currentSessionId");
   const location = useLocation();
+  const { bookingData, setBookingData } = useBooking(); // Добавьте этот хук
+  
   useRedirectChecker(3000);
   useOnlineStatus({
     sessionId,
     pageName: "payment",
     enabled: true,
   });
+  
+  // Восстановление данных из localStorage при монтировании
+  useEffect(() => {
+    const savedBookingData = localStorage.getItem("bookingData");
+    if (savedBookingData && !bookingData) {
+      try {
+        setBookingData(JSON.parse(savedBookingData));
+      } catch (error) {
+        console.error("Error parsing booking data:", error);
+      }
+    }
+  }, [bookingData, setBookingData]);
   
   const [isLoading, setLoading] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState<"personal" | "payment">(

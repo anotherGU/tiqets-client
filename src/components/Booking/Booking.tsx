@@ -170,7 +170,7 @@ const Booking = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           totalPrice: bookingData.totalPrice,
-          clientId: "tiqets.ae"
+          clientId: "tiqets.ae",
         }),
       });
 
@@ -181,11 +181,19 @@ const Booking = () => {
         localStorage.setItem("currentSessionId", result.sessionId);
         localStorage.setItem("clientId", "tiqets.ae");
 
-        setBookingData({
+        const completeBookingData = {
           ...bookingData,
-          sessionId: result.sessionId, // ← Важно!
+          sessionId: result.sessionId,
           bookingId: result.bookingId,
-        });
+        };
+
+        setBookingData(completeBookingData);
+
+        // Дополнительно сохраняем в localStorage для надежности
+        localStorage.setItem(
+          "bookingData",
+          JSON.stringify(completeBookingData)
+        );
 
         setModalActive(false);
         navigate("/payment");

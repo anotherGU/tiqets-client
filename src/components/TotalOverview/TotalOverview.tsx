@@ -8,9 +8,17 @@ interface TotalOverviewProps {
 }
 
 const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps) => {
-  const { bookingData } = useBooking();
+ const { bookingData } = useBooking();
 
-  if (!bookingData) return <p>No booking data available.</p>;
+  // Показываем заглушку, если данных нет
+  if (!bookingData) {
+    return (
+      <div className={styles.overview}>
+        <h2>Your tickets overview</h2>
+        <p>No booking data available. Please start a new booking.</p>
+      </div>
+    );
+  }
 
   const { date, tickets, totalPrice } = bookingData;
 
@@ -34,7 +42,7 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
               <img
                 width={80}
                 height={80}
-                src="./assets/gallery/2a3f6b35b65e4a1b90f3cc0f7d556a33 (1).avif"
+                src="/assets/gallery/2a3f6b35b65e4a1b90f3cc0f7d556a33 (1).avif"
                 alt=""
               />
             </div>

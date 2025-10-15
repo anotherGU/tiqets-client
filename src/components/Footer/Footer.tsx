@@ -1,12 +1,12 @@
 import Dropdown from "../UI/Dropdown/Dropdown";
 import styles from "./Footer.module.css";
-import {
-  FaInstagram,
-  FaTiktok,
-  FaFacebookF,
-  FaXTwitter,
-  FaLinkedinIn,
-} from "react-icons/fa6";
+// import {
+//   FaInstagram,
+//   FaTiktok,
+//   FaFacebookF,
+//   FaXTwitter,
+//   FaLinkedinIn,
+// } from "react-icons/fa6";
 
 const Footer = () => {
   return (
@@ -206,7 +206,7 @@ const Footer = () => {
                 Amsterdam
               </div>
             </div>
-            <div className={styles.column}>
+            {/* <div className={styles.column}>
               <div className={styles.media}>
                 <span className={styles.media__item}>
                   <a href="https://www.instagram.com/tiqets/">
@@ -234,7 +234,7 @@ const Footer = () => {
                   </a>
                 </span>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
