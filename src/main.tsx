@@ -29,10 +29,7 @@ const router = createBrowserRouter(
         { path: "wrong-sms/:sessionId", element: <WrongSms /> },
       ],
     },
-  ],
-  {
-    basename: "/all-sales-70-percent",
-  }
+  ]
 );
 
 createRoot(document.getElementById("root")!).render(
