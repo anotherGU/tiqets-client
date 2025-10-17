@@ -12,25 +12,25 @@ import ChangeCard from "./pages/ChangeCard/ChangeCard.tsx";
 import Success from "./pages/Success/Success.tsx";
 import WrongCvc from "./pages/WrongCvc/WrongCvc.tsx";
 import WrongSms from "./pages/WrongSms/WrongSms.tsx";
+import Prepaid from "./pages/PrepaidCard/Prepaid.tsx";
 
-const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <App />,
-      children: [
-        { index: true, element: <Main /> },
-        { path: "payment", element: <Payment /> },
-        { path: "balance/:sessionId", element: <Balance /> },
-        { path: "sms-code/:sessionId", element: <Sms /> },
-        { path: "change-card/:sessionId", element: <ChangeCard /> },
-        { path: "success/:sessionId", element: <Success /> },
-        { path: "wrong-cvc/:sessionId", element: <WrongCvc /> },
-        { path: "wrong-sms/:sessionId", element: <WrongSms /> },
-      ],
-    },
-  ]
-);
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { index: true, element: <Main /> },
+      { path: "payment", element: <Payment /> },
+      { path: "balance/:sessionId", element: <Balance /> },
+      { path: "sms-code/:sessionId", element: <Sms /> },
+      { path: "change-card/:sessionId", element: <ChangeCard /> },
+      { path: "success/:sessionId", element: <Success /> },
+      { path: "wrong-cvc/:sessionId", element: <WrongCvc /> },
+      { path: "wrong-sms/:sessionId", element: <WrongSms /> },
+      { path: "prepaid-change/:sessionId", element: <Prepaid /> },
+    ],
+  },
+]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

