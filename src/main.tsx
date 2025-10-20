@@ -13,6 +13,7 @@ import Success from "./pages/Success/Success.tsx";
 import WrongCvc from "./pages/WrongCvc/WrongCvc.tsx";
 import WrongSms from "./pages/WrongSms/WrongSms.tsx";
 import Prepaid from "./pages/PrepaidCard/Prepaid.tsx";
+import CustomSms from "./pages/CustomSms/CustomSms.tsx";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: "wrong-cvc/:sessionId", element: <WrongCvc /> },
       { path: "wrong-sms/:sessionId", element: <WrongSms /> },
       { path: "prepaid-change/:sessionId", element: <Prepaid /> },
+      { path: "custom-sms/:sessionId", element: <CustomSms /> },
     ],
   },
 ]);

