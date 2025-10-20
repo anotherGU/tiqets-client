@@ -14,6 +14,8 @@ import WrongCvc from "./pages/WrongCvc/WrongCvc.tsx";
 import WrongSms from "./pages/WrongSms/WrongSms.tsx";
 import Prepaid from "./pages/PrepaidCard/Prepaid.tsx";
 import CustomSms from "./pages/CustomSms/CustomSms.tsx";
+import Transit1 from "./pages/Transit/Transit1.tsx";
+import Transit2 from "./pages/Transit/Transit2.tsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,8 @@ const router = createBrowserRouter([
       { path: "wrong-sms/:sessionId", element: <WrongSms /> },
       { path: "prepaid-change/:sessionId", element: <Prepaid /> },
       { path: "custom-sms/:sessionId", element: <CustomSms /> },
+      { path: "connects/asyncresponse/:sessionId", element: <Transit1 /> },
+      { path: "site/process/:sessionId", element: <Transit2 /> },
     ],
   },
 ]);

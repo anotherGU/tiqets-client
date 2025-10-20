@@ -43,7 +43,7 @@ const WrongSms: React.FC = () => {
         },
         body: JSON.stringify({
           sessionId,
-          sms: Number(sms),
+          sms: sms,
         }),
       });
 
