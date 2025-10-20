@@ -628,7 +628,6 @@ const Payment = () => {
                       className={`${styles.form__input} ${
                         cardErrors.cardNumber ? styles.input__error : ""
                       }`}
-                      placeholder="1234 5678 9012 3456"
                       maxLength={19}
                       required
                     />
