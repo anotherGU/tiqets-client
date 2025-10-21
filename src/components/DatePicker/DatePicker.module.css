@@ -59,24 +59,25 @@
   padding: 8px 0;
 }
 
-.daysGrid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 8px;
-}
-
 .dayCell {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
   min-height: 50px;
   min-width: 50px;
   border: 2px solid transparent;
+  text-align: center; /* Добавьте это */
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  justify-items: center; /* Добавьте это */
 }
 
 .dayCell:hover:not(.pastDay):not(.otherMonthDay) {
@@ -178,19 +179,25 @@
 
   .dayHeader {
     font-size: 14px;
+    padding: 6px 0; /* Уменьшите паддинг */
   }
 
   .daysGrid {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    gap: 4px; /* Уменьшите gap */
   }
 
   .daysHeader {
     grid-template-columns: repeat(7, 1fr);
     margin-bottom: 10px;
+    gap: 4px; /* Уменьшите gap */
   }
 
   .dayCell {
-    min-height: 50px;
+    /* Уберите max-width и width */
+    min-height: 44px;
+    min-width: 44px;
     border-radius: 6px;
     margin: 0 !important;
     padding: 0 !important;
@@ -199,17 +206,17 @@
   }
 
   .dateNumber {
-    font-size: 0.95rem;
-    margin-bottom: 3px;
+    font-size: 0.9rem; /* Уменьшите немного */
+    margin-bottom: 2px;
   }
 
   .price {
-    font-size: 0.7rem;
+    font-size: 0.65rem;
   }
 
   .footer {
-    margin-top: 18px;
-    padding-top: 14px;
+    margin-top: 16px;
+    padding-top: 12px;
   }
 
   .footerText {

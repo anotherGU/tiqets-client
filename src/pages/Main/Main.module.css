@@ -30,7 +30,7 @@
 
 .search {
   width: 100%;
-  padding: 12px 16px 12px 60px; /* слева отступ под иконку */
+  padding: 12px 16px 12px 60px;
   border-radius: 50px;
   border: none;
   height: 50px;
@@ -118,8 +118,6 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-
-  /* градиент по бокам */
   -webkit-mask-image: linear-gradient(
     to right,
     transparent,
@@ -138,8 +136,7 @@
   );
   mask-repeat: no-repeat;
   mask-size: 100% 100%;
-
-  background: #fff; /* фон */
+  background: #fff;
 }
 
 .marquee {
@@ -265,4 +262,292 @@
   bottom: 0;
   z-index: 2;
   transform: translateX(50%);
+}
+
+/* Адаптив для планшетов (768px - 1024px) */
+@media (max-width: 1024px) {
+  .title {
+    font-size: 36px;
+  }
+
+  .inputWrapper {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .info {
+    gap: 16px;
+    margin: 30px 0;
+  }
+
+  .info__block {
+    height: auto;
+    min-height: 100px;
+  }
+
+  .help__center {
+    gap: 50px;
+    height: auto;
+    padding: 30px;
+  }
+
+  .download {
+    height: auto;
+    padding: 60px 0;
+  }
+
+  .download__content {
+    padding-top: 0;
+    width: 60%;
+  }
+
+  .phone__1 img {
+    width: 200px;
+    height: 260px;
+  }
+
+  .phone__2 img {
+    width: 200px;
+    height: 320px;
+  }
+}
+
+/* Адаптив для мобильных устройств (768px и меньше) */
+@media (max-width: 768px) {
+  .header {
+    height: 300px;
+  }
+
+  .header .content {
+    padding-top: 60px;
+  }
+
+  .title {
+    font-size: 28px;
+    text-align: center;
+  }
+
+  .inputWrapper {
+    width: 100%;
+  }
+
+  .search {
+    padding: 10px 16px 10px 50px;
+    height: 45px;
+    font-size: 14px;
+  }
+
+  .search__ico {
+    margin-left: 15px;
+    height: 20px;
+    width: 20px;
+  }
+
+  .end__row {
+    margin-top: 20px;
+    justify-content: center;
+  }
+
+  .info {
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .info__block {
+    width: 100%;
+    height: auto;
+  }
+
+  .partners__title {
+    font-size: 24px;
+  }
+
+  .partners__description {
+    font-size: 14px;
+  }
+
+  .track img {
+    width: 100px;
+    height: 80px;
+    margin: 0 15px;
+  }
+
+  .help__center {
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .help__ico svg {
+    width: 120px;
+    height: 120px;
+  }
+
+  .help__title {
+    font-size: 20px;
+  }
+
+  .help__description {
+    font-size: 14px;
+  }
+
+  .download {
+    flex-direction: column;
+    height: auto;
+    padding: 40px 0 0 0;
+  }
+
+  .download__content {
+    width: 100%;
+    text-align: center;
+    padding-top: 0;
+    margin-bottom: 30px;
+  }
+
+  .download__title {
+    font-size: 24px;
+  }
+
+  .download__description {
+    font-size: 14px;
+  }
+
+  .download__buttons {
+    justify-content: center;
+  }
+
+  .download__buttons img {
+    width: 120px;
+    height: 36px;
+  }
+
+  .download__img {
+    width: 100%;
+    justify-content: center;
+    height: 200px;
+  }
+
+  .phone__1 img {
+    width: 150px;
+    height: 195px;
+    bottom: 0 !important;
+  }
+
+  .phone__2 img {
+    width: 150px;
+    height: 240px;
+    position: relative;
+    transform: translateX(0);
+    margin-left: -30px;
+    bottom: 0 !important;
+  }
+}
+
+/* Адаптив для маленьких мобильных устройств (480px и меньше) */
+@media (max-width: 480px) {
+  .header {
+    height: 250px;
+  }
+
+  .header .content {
+    padding-top: 40px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .search {
+    padding: 8px 12px 8px 45px;
+    height: 40px;
+    font-size: 13px;
+  }
+
+  .search__ico {
+    margin-left: 12px;
+    height: 18px;
+    width: 18px;
+  }
+
+  .end {
+    font-size: 12px;
+  }
+
+  .info__block {
+    padding: 12px;
+  }
+
+  .info__ico img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .info__title {
+    font-size: 14px;
+  }
+
+  .info__subtitle {
+    font-size: 12px;
+  }
+
+  .partners__title {
+    font-size: 20px;
+  }
+
+  .partners__description {
+    font-size: 13px;
+    line-height: 1.4rem;
+  }
+
+  .track img {
+    width: 80px;
+    height: 64px;
+    margin: 0 10px;
+  }
+
+  .download__title {
+    font-size: 20px;
+  }
+
+  .download__buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .download__buttons img {
+    width: 140px;
+    height: 42px;
+  }
+
+  .phone__1 img {
+    width: 120px;
+    height: 156px;
+  }
+
+  .phone__2 img {
+    width: 120px;
+    height: 192px;
+  }
+}
+
+/* Для очень маленьких экранов (360px и меньше) */
+@media (max-width: 360px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .help__title {
+    font-size: 18px;
+  }
+
+  .download__title {
+    font-size: 18px;
+  }
+
+  .download__description {
+    font-size: 13px;
+  }
 }

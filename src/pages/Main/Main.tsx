@@ -1,7 +1,41 @@
+import { useEffect, useState } from "react";
 import styles from "./Main.module.css";
 import { CiSearch } from "react-icons/ci";
 import { TfiTicket } from "react-icons/tfi";
+import EventsList from "../../components/EventsList/EventsList";
+
+interface Event {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  price: number;
+  rating: number;
+  reviews_count: number;
+  category: string;
+  image_urls: string[];
+}
+
+
 const Main = () => {
+  const [events, setEvents] = useState<Event[]>([]);
+const [loading, setLoading] = useState(false);
+
+useEffect(() => {
+  fetchEvents();
+}, []);
+
+const fetchEvents = async () => {
+  try {
+    const response = await fetch("/api/events");
+    const data = await response.json();
+    setEvents(data);
+  } catch (error) {
+    console.error("Error fetching events:", error);
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -136,6 +170,14 @@ const Main = () => {
                 </div>
               </div>
             </div>
+            <section className={styles.eventsSection}>
+              <h2>Popular Experiences</h2>
+              {loading ? (
+                <div>Loading events...</div>
+              ) : (
+                <EventsList events={events} />
+              )}
+            </section>
           </div>
           <div className={styles.help__center}>
             <div className={styles.help__ico}>
@@ -242,7 +284,9 @@ const Main = () => {
           <div className="container">
             <div className={styles.download}>
               <div className={styles.download__content}>
-                <h1 className={styles.download__title}>Download the Tiqets app for easy access to culture</h1>
+                <h1 className={styles.download__title}>
+                  Download the Tiqets app for easy access to culture
+                </h1>
                 <p className={styles.download__description}>
                   Make your next experience one smooth ride with the Tiqets app.
                   Use it to discover your destination, plan on the go, store

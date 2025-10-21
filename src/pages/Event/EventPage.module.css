@@ -5,6 +5,10 @@
   display: flex;
 }
 
+.description{
+  width: 67%;
+}
+
 .route li {
   list-style: none;
 }

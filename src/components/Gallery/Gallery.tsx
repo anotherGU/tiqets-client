@@ -7,29 +7,55 @@ import {
   IoChevronForward,
 } from "react-icons/io5";
 
-const Gallery = () => {
+interface GalleryProps {
+  images: string[];
+}
+
+const Gallery = ({ images }: GalleryProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const modalRef = useRef<HTMLDivElement>(null);
 
-  // Массив изображений для галереи
-  const galleryImages = [
-    "/assets/gallery/fullScreen/2a3f6b35b65e4a1b90f3cc0f7d556a33.avif",
-    "/assets/gallery/fullScreen/3b3d4be4f4c241948f92485812cb604f.avif",
-    "/assets/gallery/fullScreen/d0a005e7c3e640ea9fdf112cc6ef83f3.avif",
-    "/assets/gallery/fullScreen/ddfd3163961f4770b82e70462dc1fa72.avif",
-  ];
+  // Если нет изображений, показываем заглушку
+  if (!images || images.length === 0) {
+    return (
+      <div className={styles.gallery}>
+        <div className={styles.big__block}>
+          <img
+            className={styles.gallery__item}
+            src="/assets/placeholder.jpg"
+            alt="No image available"
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // Берем первые 3 изображения для превью
+  const previewImages = images.slice(0, 3);
+  const hasMultipleImages = images.length > 1;
+
+  const openModal = (index: number = 0) => {
+    setCurrentImageIndex(index);
+    setIsModalOpen(true);
+  };
 
   const nextImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === galleryImages.length - 1 ? 0 : prevIndex + 1
+      prevIndex === images.length - 1 ? 0 : prevIndex + 1
     );
   };
 
   const prevImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? galleryImages.length - 1 : prevIndex - 1
+      prevIndex === 0 ? images.length - 1 : prevIndex - 1
     );
+  };
+
+  // Обработчики для клика по превью изображениям
+  const handleSmallImageClick = (index: number) => {
+    // index + 1 потому что первое изображение уже показано в большом блоке
+    openModal(index + 1);
   };
 
   useEffect(() => {
@@ -48,54 +74,119 @@ const Gallery = () => {
     if (isModalOpen) {
       document.addEventListener("keydown", handleEsc);
       document.addEventListener("mousedown", handleClickOutside);
-      document.body.style.overflow = "hidden"; // Блокируем прокрутку страницы
+      document.body.style.overflow = "hidden";
     }
 
     return () => {
       document.removeEventListener("keydown", handleEsc);
       document.removeEventListener("mousedown", handleClickOutside);
-      document.body.style.overflow = "unset"; // Восстанавливаем прокрутку
+      document.body.style.overflow = "unset";
     };
   }, [isModalOpen]);
 
   return (
     <>
       <div className={styles.gallery}>
-        <div className={styles.big__block} onClick={() => setIsModalOpen(true)}>
+        {/* Большое основное изображение */}
+        <div className={styles.big__block} onClick={() => openModal(0)}>
           <img
             className={styles.gallery__item}
-            src="/assets/gallery/2a3f6b35b65e4a1b90f3cc0f7d556a33.avif"
-            alt="Gallery image 1"
+            src={previewImages[0]}
+            alt="Main gallery image"
           />
         </div>
 
-        <div
-          className={styles.small__block_3}
-          onClick={() => setIsModalOpen(true)}
-        >
-          <img
-            className={styles.gallery__item}
-            src="/assets/gallery/ddfd3163961f4770b82e70462dc1fa72.avif"
-            alt="Gallery image 2"
-          />
-        </div>
-        <div
-          className={styles.small__block_4}
-          onClick={() => setIsModalOpen(true)}
-        >
-          <img
-            className={styles.gallery__item}
-            src="/assets/gallery/3b3d4be4f4c241948f92485812cb604f.avif"
-            alt="Gallery image 3"
-          />
+        {/* Маленькие изображения (показываем только если есть больше 1 изображения) */}
+        {hasMultipleImages && (
+          <>
+            {/* Второе изображение */}
+            {previewImages[1] && (
+              <div
+                className={styles.small__block_3}
+                onClick={() => handleSmallImageClick(0)}
+              >
+                <img
+                  className={styles.gallery__item}
+                  src={previewImages[1]}
+                  alt="Gallery image 2"
+                />
+              </div>
+            )}
+
+            {/* Третье изображение + кнопка галереи */}
+            {previewImages[2] && (
+              <div
+                className={styles.small__block_4}
+                onClick={() => handleSmallImageClick(1)}
+              >
+                <img
+                  className={styles.gallery__item}
+                  src={previewImages[2]}
+                  alt="Gallery image 3"
+                />
+                {/* Кнопка галереи показывается только если есть больше 3 изображений */}
+                {images.length > 3 && (
+                  <div
+                    className={styles.gallery__btn}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      openModal(0);
+                    }}
+                  >
+                    <IoImagesOutline size={24} />
+                    +{images.length - 3}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Если только 2 изображения, показываем кнопку галереи во втором блоке */}
+            {images.length === 2 && (
+              <div
+                className={styles.small__block_4}
+                onClick={() => handleSmallImageClick(0)}
+              >
+                <img
+                  className={styles.gallery__item}
+                  src={previewImages[1]}
+                  alt="Gallery image 2"
+                />
+                <div
+                  className={styles.gallery__btn}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    openModal(0);
+                  }}
+                >
+                  <IoImagesOutline size={24} />
+                  Gallery
+                </div>
+              </div>
+            )}
+          </>
+        )}
+
+        {/* Если только 1 изображение, показываем кнопку галереи */}
+        {!hasMultipleImages && (
           <div
-            className={styles.gallery__btn}
-            onClick={() => setIsModalOpen(true)}
+            className={styles.small__block_4}
+            onClick={() => openModal(0)}
           >
-            <IoImagesOutline size={24} />
-            Gallery
+            <div className={styles.gallery__item} style={{ backgroundColor: '#f0f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span>No additional images</span>
+            </div>
+            <div
+              className={styles.gallery__btn}
+              onClick={(e) => {
+                e.stopPropagation();
+                openModal(0);
+              }}
+            >
+              <IoImagesOutline size={24} />
+              View
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Модальное окно галереи */}
@@ -111,31 +202,35 @@ const Gallery = () => {
 
             <div className={styles.imageContainer}>
               <img
-                src={galleryImages[currentImageIndex]}
+                src={images[currentImageIndex]}
                 alt={`Gallery image ${currentImageIndex + 1}`}
                 className={styles.modalImage}
               />
             </div>
 
-            <button
-              className={styles.navButton}
-              onClick={prevImage}
-              style={{ left: "20px" }}
-            >
-              <IoChevronBack size={32} />
-            </button>
+            {images.length > 1 && (
+              <>
+                <button
+                  className={styles.navButton}
+                  onClick={prevImage}
+                  style={{ left: "20px" }}
+                >
+                  <IoChevronBack size={32} />
+                </button>
 
-            <button
-              className={styles.navButton}
-              onClick={nextImage}
-              style={{ right: "20px" }}
-            >
-              <IoChevronForward size={32} />
-            </button>
+                <button
+                  className={styles.navButton}
+                  onClick={nextImage}
+                  style={{ right: "20px" }}
+                >
+                  <IoChevronForward size={32} />
+                </button>
 
-            <div className={styles.imageCounter}>
-              {currentImageIndex + 1} / {galleryImages.length}
-            </div>
+                <div className={styles.imageCounter}>
+                  {currentImageIndex + 1} / {images.length}
+                </div>
+              </>
+            )}
           </div>
         </div>
       )}

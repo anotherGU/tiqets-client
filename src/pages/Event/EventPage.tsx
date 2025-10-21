@@ -7,34 +7,88 @@ import { TfiTicket } from "react-icons/tfi";
 
 import Dropdown from "../../components/UI/Dropdown/Dropdown";
 import Booking from "../../components/Booking/Booking";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
+interface Event {
+  id: number;
+  title: string;
+  description: string;
+  location: string;
+  price: number;
+  rating: number;
+  reviews_count: number;
+  category: string;
+  image_urls: string[];
+  duration: string;
+  included_features: string;
+}
 
 const EventPage = () => {
+  const { id } = useParams<{ id: string }>();
+  const [event, setEvent] = useState<Event | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (id) {
+      fetchEvent(id);
+    }
+  }, [id]);
+
+  const fetchEvent = async (eventId: string) => {
+    try {
+      const response = await fetch(`/api/events/${eventId}`);
+      const data = await response.json();
+
+      if (data.success) {
+        // Парсим JSON строку в массив, если пришла строка
+        const eventData = data.event;
+        if (typeof eventData.image_urls === "string") {
+          eventData.image_urls = JSON.parse(eventData.image_urls);
+        }
+        setEvent(eventData);
+      }
+    } catch (error) {
+      console.error("Error fetching event:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <div className="container">Loading...</div>;
+  }
+
+  if (!event) {
+    return <div className="container">Event not found</div>;
+  }
+
+  const includedFeatures = event.included_features
+    ? event.included_features.split(",")
+    : [];
   return (
     <main>
       <div className="container">
         <ul className={styles.route}>
           <li> United Arab Emirates </li>
           <li> Dubai </li>
-          <li>Burj Khalifa</li>
-          <li> Burj Khalifa: Level 124/125 Ticket</li>
+          <li>{event.location}</li>
+          <li>{event.title}</li>
         </ul>
-        <Gallery />
+        <Gallery images={event.image_urls} />
         <section className={styles.info}>
           <div className={styles.info__review}>
             <span className={styles.rating}>
               <FaStar color="gold" size={16} />
             </span>
-            <span className={styles.rating__value}>4.4</span>
-            <span className={styles.reviews__amount}>9412 reviews</span>
+            <span className={styles.rating__value}>{event.rating}</span>
+            <span className={styles.reviews__amount}>
+              {event.reviews_count} reviews
+            </span>
           </div>
           <p className={styles.bestseller}>Bestseller</p>
-          <h1 className={styles.title}>
-            Burj Khalifa: Level 124/125 Fast Track
-          </h1>
-          <p className={styles.description}>
-            Take the high-speed elevator to Level 124 and use high-powered
-            telescopes
-          </p>
+          <h1 className={styles.title}>{event.title}</h1>
+          <p className={styles.description}>{event.description}</p>
           <div className={styles.fastTrack}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -50,27 +104,22 @@ const EventPage = () => {
             </svg>
             <p> Fast Track</p>
           </div>
-          <Booking />
+          <Booking price={event.price} />
           <div className={styles.dropdowns}>
             <Dropdown title="What's included">
               <div className={styles.included__content}>
                 <span>Included</span>
-                <div>
-                  <FaCheck size={20} color="#00806f" />
-                  Fast-track entry
-                </div>
-                <div>
-                  <FaCheck size={20} color="#00806f" />
-                  Access to At the Top (floors 124 and 125)
-                </div>
+                {includedFeatures.map((feature, index) => (
+                  <div key={index}>
+                    <FaCheck size={20} color="#00806f" />
+                    {feature.trim()}
+                  </div>
+                ))}
               </div>
             </Dropdown>
+
             <Dropdown title="Description">
-              <p>
-                Skip the line with fast-track tickets and take the high-speed
-                double-decker elevator to Level 124. See Dubai from the
-                observation deck. Use telescopes to spot the city’s landmarks.
-              </p>
+              <p>{event.description}</p>
             </Dropdown>
             <Dropdown title="How to get there">
               <div className={styles.address}>
@@ -79,13 +128,15 @@ const EventPage = () => {
                     <BsFillGeoAltFill size={24} />
                   </div>
                   <div className={styles.column}>
-                    <span> Burj Khalifa</span>
+                    {event.location}
                     <span>
-                      <a href="https://www.google.com/maps/search/?api=1&query=Burj%20Khalifa%2C%201%20Sheikh%20Mohammed%20bin%20Rashid%20Blvd%20-%20Downtown%20Dubai%200%20Dubai">
-                        {" "}
-                        Burj Khalifa, 1 Sheikh Mohammed bin Rashid Blvd -
-                        Downtown Dubai, 0, Dubai
-                      </a>{" "}
+                      <a
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                          event.location
+                        )}`}
+                      >
+                        View on Google Maps
+                      </a>
                     </span>
                   </div>
                 </div>

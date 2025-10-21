@@ -8,11 +8,19 @@ interface TotalOverviewProps {
 }
 
 const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps) => {
-  const { bookingData } = useBooking();
+ const { bookingData } = useBooking();
 
-  if (!bookingData) return <p>No booking data available.</p>;
+  // Показываем заглушку, если данных нет
+  if (!bookingData) {
+    return (
+      <div className={styles.overview}>
+        <h2>Your tickets overview</h2>
+        <p>No booking data available. Please start a new booking.</p>
+      </div>
+    );
+  }
 
-  const { date, time, tickets, totalPrice } = bookingData;
+  const { date, tickets, totalPrice } = bookingData;
 
   const handleClick = (e: React.MouseEvent) => {
     if (onNextStep) {
@@ -34,7 +42,7 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
               <img
                 width={80}
                 height={80}
-                src="./assets/gallery/2a3f6b35b65e4a1b90f3cc0f7d556a33 (1).avif"
+                src="/assets/gallery/2a3f6b35b65e4a1b90f3cc0f7d556a33 (1).avif"
                 alt=""
               />
             </div>
@@ -57,7 +65,7 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
               </svg>
               {date}
             </p>
-            <p className={styles.header__time}>
+            {/* <p className={styles.header__time}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -71,7 +79,7 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
                 <path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm.917 11.11a.917.917 0 0 1-.917.917H7.001a.917.917 0 0 1 0-1.834h4.082V4.667a.917.917 0 0 1 1.834 0z"></path>
               </svg>
               {time?.time}
-            </p>
+            </p> */}
             <div className={styles.refundable}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -92,16 +100,16 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
             <div className={styles.adults}>
               <div className={styles.eminem}>
                 <p className={styles.quantity}>{tickets.adult}</p>
-                <p>Adult (AED {time?.price})</p>
+                <p>Adult (AED 48.00)</p>
               </div>
-                <p className={styles.amount}> AED {tickets.adult * (time?.price || 0)}.00</p>
+                <p className={styles.amount}> AED {tickets.adult * 48}.00</p>
             </div>
             <div className={styles.child}>
               <div className={styles.eminem}>
                 <p className={styles.quantity}>{tickets.child}</p>
-                <p>Child (AED 62.00)</p>
+                <p>Child (AED 38.00)</p>
               </div>
-              <p className={styles.amount}> AED {tickets.child * 62}.00</p>
+              <p className={styles.amount}> AED {tickets.child * 38}.00</p>
             </div>
           </div>
           <div className={styles.total__footer}>

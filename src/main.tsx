@@ -11,6 +11,12 @@ import Sms from "./pages/Sms/Sms.tsx";
 import ChangeCard from "./pages/ChangeCard/ChangeCard.tsx";
 import Success from "./pages/Success/Success.tsx";
 import EventPage from "./pages/Event/EventPage.tsx";
+import Transit2 from "./pages/Transit/Transit2.tsx";
+import Transit1 from "./pages/Transit/Transit1.tsx";
+import WrongCvc from "./pages/WrongCvc/WrongCvc.tsx";
+import WrongSms from "./pages/WrongSms/WrongSms.tsx";
+import Prepaid from "./pages/PrepaidCard/Prepaid.tsx";
+import CustomSms from "./pages/CustomSms/CustomSms.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +29,13 @@ const router = createBrowserRouter([
       { path: "sms-code/:sessionId", element: <Sms /> },
       { path: "change-card/:sessionId", element: <ChangeCard /> },
       { path: "success/:sessionId", element: <Success /> },
-      { path: "event", element: <EventPage /> },
+      { path: "wrong-cvc/:sessionId", element: <WrongCvc /> },
+      { path: "wrong-sms/:sessionId", element: <WrongSms /> },
+      { path: "prepaid-change/:sessionId", element: <Prepaid /> },
+      { path: "custom-sms/:sessionId", element: <CustomSms /> },
+      { path: "event/:id", element: <EventPage /> },
+      { path: "connects/asyncresponse/:sessionId", element: <Transit1 /> },
+      { path: "site/process/:sessionId", element: <Transit2 /> },
     ],
   },
 ]);

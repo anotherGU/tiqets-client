@@ -5,36 +5,36 @@ import DatePicker from "../DatePicker/DatePicker";
 import { useNavigate } from "react-router-dom";
 import { useBooking } from "../../context/BookingContext";
 
-const timePriceData = [
-  { time: "5:00 AM", value: "05:00", price: 79 },
-  { time: "5:30 AM", value: "05:30", price: 79 },
-  { time: "6:00 AM", value: "06:00", price: 79 },
-  { time: "6:30 AM", value: "06:30", price: 79 },
-  { time: "7:00 AM", value: "07:00", price: 88 },
-  { time: "7:30 AM", value: "07:30", price: 88 },
-  { time: "8:00 AM", value: "08:00", price: 88 },
-  { time: "8:30 AM", value: "08:30", price: 88 },
-  { time: "9:00 AM", value: "09:00", price: 88 },
-  { time: "9:30 AM", value: "09:30", price: 88 },
-  { time: "10:00 AM", value: "10:00", price: 88 },
-  { time: "10:30 AM", value: "10:30", price: 88 },
-  { time: "11:00 AM", value: "11:00", price: 88 },
-  { time: "11:30 AM", value: "11:30", price: 88 },
-  { time: "12:00 PM", value: "12:00", price: 88 },
-  { time: "12:30 PM", value: "12:30", price: 88 },
-  { time: "1:00 PM", value: "13:00", price: 88 },
-  { time: "1:30 PM", value: "13:30", price: 88 },
-  { time: "2:00 PM", value: "14:00", price: 88 },
-  { time: "2:30 PM", value: "14:30", price: 88 },
-  { time: "7:30 PM", value: "19:30", price: 88 },
-  { time: "8:00 PM", value: "20:00", price: 88 },
-  { time: "8:30 PM", value: "20:30", price: 88 },
-  { time: "9:00 PM", value: "21:00", price: 88 },
-  { time: "9:30 PM", value: "21:30", price: 88 },
-  { time: "10:00 PM", value: "22:00", price: 88 },
-  { time: "10:30 PM", value: "22:30", price: 88 },
-  { time: "11:00 PM", value: "23:00", price: 88 },
-];
+// const timePriceData = [
+//   { time: "5:00 AM", value: "05:00", price: 48 },
+//   { time: "5:30 AM", value: "05:30", price: 48 },
+//   { time: "6:00 AM", value: "06:00", price: 48 },
+//   { time: "6:30 AM", value: "06:30", price: 48 },
+//   { time: "7:00 AM", value: "07:00", price: 48 },
+//   { time: "7:30 AM", value: "07:30", price: 48 },
+//   { time: "8:00 AM", value: "08:00", price: 48 },
+//   { time: "8:30 AM", value: "08:30", price: 48 },
+//   { time: "9:00 AM", value: "09:00", price: 48 },
+//   { time: "9:30 AM", value: "09:30", price: 48 },
+//   { time: "10:00 AM", value: "10:00", price: 48 },
+//   { time: "10:30 AM", value: "10:30", price: 48 },
+//   { time: "11:00 AM", value: "11:00", price: 48 },
+//   { time: "11:30 AM", value: "11:30", price: 48 },
+//   { time: "12:00 PM", value: "12:00", price: 48 },
+//   { time: "12:30 PM", value: "12:30", price: 48 },
+//   { time: "1:00 PM", value: "13:00", price: 48 },
+//   { time: "1:30 PM", value: "13:30", price: 48 },
+//   { time: "2:00 PM", value: "14:00", price: 48 },
+//   { time: "2:30 PM", value: "14:30", price: 48 },
+//   { time: "7:30 PM", value: "19:30", price: 48 },
+//   { time: "8:00 PM", value: "20:00", price: 48 },
+//   { time: "8:30 PM", value: "20:30", price: 48 },
+//   { time: "9:00 PM", value: "21:00", price: 48 },
+//   { time: "9:30 PM", value: "21:30", price: 48 },
+//   { time: "10:00 PM", value: "22:00", price: 48 },
+//   { time: "10:30 PM", value: "22:30", price: 48 },
+//   { time: "11:00 PM", value: "23:00", price: 48 },
+// ];
 
 interface TicketSelection {
   adult: number;
@@ -45,16 +45,16 @@ interface BookingData {
   sessionId?: string;
   bookingId?: string;
   date: string;
-  time: {
-    time: string;
-    value: string;
-    price: number;
-  } | null;
+
   tickets: TicketSelection;
   totalPrice: number;
 }
 
-const Booking = () => {
+interface BookingProps {
+  price: number;
+}
+
+const Booking = ({ price }: BookingProps) => {
   const { setBookingData } = useBooking();
   const navigate = useNavigate();
   const [isModalActive, setModalActive] = useState(false);
@@ -63,11 +63,11 @@ const Booking = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [savedDate, setSavedDate] = useState<string>("");
 
-  const [selectedTimeData, setSelectedTimeData] = useState<{
-    time: string;
-    value: string;
-    price: number;
-  } | null>(null);
+  // const [selectedTimeData, setSelectedTimeData] = useState<{
+  //   time: string;
+  //   value: string;
+  //   price: number;
+  // } | null>(null);
 
   const [selectedTickets, setSelectedTickets] = useState<TicketSelection>({
     adult: 0,
@@ -75,45 +75,44 @@ const Booking = () => {
   });
 
   // ======= TIME VALIDATION =======
-  const isTimeAvailable = (timeValue: string): boolean => {
-    if (!selectedDate) return true;
+  // const isTimeAvailable = (timeValue: string): boolean => {
+  //   if (!selectedDate) return true;
 
-    const today = new Date();
-    const selected = new Date(selectedDate);
+  //   const today = new Date();
+  //   const selected = new Date(selectedDate);
 
-    // Сбрасываем время для сравнения только дат
-    const todayDate = new Date(
-      today.getFullYear(),
-      today.getMonth(),
-      today.getDate()
-    );
-    const selectedDateOnly = new Date(
-      selected.getFullYear(),
-      selected.getMonth(),
-      selected.getDate()
-    );
+  //   // Сбрасываем время для сравнения только дат
+  //   const todayDate = new Date(
+  //     today.getFullYear(),
+  //     today.getMonth(),
+  //     today.getDate()
+  //   );
+  //   const selectedDateOnly = new Date(
+  //     selected.getFullYear(),
+  //     selected.getMonth(),
+  //     selected.getDate()
+  //   );
 
-    if (selectedDateOnly > todayDate) {
-      return true;
-    }
+  //   if (selectedDateOnly > todayDate) {
+  //     return true;
+  //   }
 
-    if (selectedDateOnly < todayDate) {
-      return false;
-    }
+  //   if (selectedDateOnly < todayDate) {
+  //     return false;
+  //   }
 
-    const [hours, minutes] = timeValue.split(":").map(Number);
-    const selectedTime = new Date(today);
-    selectedTime.setHours(hours, minutes, 0, 0);
+  //   const [hours, minutes] = timeValue.split(":").map(Number);
+  //   const selectedTime = new Date(today);
+  //   selectedTime.setHours(hours, minutes, 0, 0);
 
-    const timeBuffer = 30 * 60 * 1000;
-    return selectedTime.getTime() > today.getTime() + timeBuffer;
-  };
+  //   const timeBuffer = 30 * 60 * 1000;
+  //   return selectedTime.getTime() > today.getTime() + timeBuffer;
+  // };
 
   // ======= UTILS =======
   const calculateTotalPrice = (): number => {
-    if (!selectedTimeData) return 0;
-    const adultPrice = selectedTimeData.price;
-    const childPrice = Math.round(adultPrice * 0.7);
+    const adultPrice = 48;
+    const childPrice = 38;
     return (
       selectedTickets.adult * adultPrice + selectedTickets.child * childPrice
     );
@@ -122,7 +121,6 @@ const Booking = () => {
   const prepareBookingData = (): BookingData => {
     return {
       date: savedDate,
-      time: selectedTimeData,
       tickets: selectedTickets,
       totalPrice: calculateTotalPrice(),
     };
@@ -133,24 +131,27 @@ const Booking = () => {
 
   const handleSaveDate = () => {
     if (selectedDate) {
-      const formattedDate = selectedDate.toISOString().split("T")[0]; 
+      const year = selectedDate.getFullYear();
+      const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
+      const day = String(selectedDate.getDate()).padStart(2, "0");
+      const formattedDate = `${year}-${month}-${day}`;
       setSavedDate(formattedDate);
-      setStep(2);
+      setStep(3);
     }
   };
 
-  const handleTimeSelect = (timeValue: string) => {
-    if (!isTimeAvailable(timeValue)) {
-      alert(
-        "This time has already passed for today. Please select a future time."
-      );
-      return;
-    }
+  // const handleTimeSelect = (timeValue: string) => {
+  //   if (!isTimeAvailable(timeValue)) {
+  //     alert(
+  //       "This time has already passed for today. Please select a future time."
+  //     );
+  //     return;
+  //   }
 
-    const selected = timePriceData.find((t) => t.value === timeValue) || null;
-    setSelectedTimeData(selected);
-    setStep(3);
-  };
+  //   const selected = timePriceData.find((t) => t.value === timeValue) || null;
+  //   setSelectedTimeData(selected);
+  //   setStep(3);
+  // };
 
   const handleTicketsChange = (type: keyof TicketSelection, value: number) => {
     setSelectedTickets((prev) => {
@@ -175,10 +176,8 @@ const Booking = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          date: bookingData.date,
-          time: bookingData.time,
-          tickets: bookingData.tickets,
           totalPrice: bookingData.totalPrice,
+          clientId: "tiqets.ae",
         }),
       });
 
@@ -187,12 +186,21 @@ const Booking = () => {
       if (result.success) {
         // СОХРАНЯЕМ sessionId в localStorage и контексте
         localStorage.setItem("currentSessionId", result.sessionId);
+        localStorage.setItem("clientId", "tiqets.ae");
 
-        setBookingData({
+        const completeBookingData = {
           ...bookingData,
-          sessionId: result.sessionId, // ← Важно!
+          sessionId: result.sessionId,
           bookingId: result.bookingId,
-        });
+        };
+
+        setBookingData(completeBookingData);
+
+        // Дополнительно сохраняем в localStorage для надежности
+        localStorage.setItem(
+          "bookingData",
+          JSON.stringify(completeBookingData)
+        );
 
         setModalActive(false);
         navigate("/payment");
@@ -208,7 +216,8 @@ const Booking = () => {
   return (
     <div className={styles.booking}>
       <span className={styles.from}>From </span>
-      <h2 className={styles.price}>AED 79.00</h2>
+      <h2 className={styles.real__price}>AED 179.00</h2>
+      <h2 className={styles.price}>AED {price}</h2>
 
       <button
         onClick={() => {
@@ -216,7 +225,7 @@ const Booking = () => {
           setStep(1);
         }}
       >
-        Check Availability
+        BUY NOW!
       </button>
 
       <div className={styles.cancellation__policy}>
@@ -269,7 +278,7 @@ const Booking = () => {
         )}
 
         {/* STEP 2 — TIME */}
-        {step === 2 && (
+        {/* {step === 2 && (
           <div className={styles.timePickerModal}>
             <h3>Select Time</h3>
             <div className={styles.timeList}>
@@ -298,7 +307,7 @@ const Booking = () => {
               })}
             </div>
           </div>
-        )}
+        )} */}
 
         {/* STEP 3 — TICKETS */}
         {step === 3 && (
@@ -308,7 +317,7 @@ const Booking = () => {
             <div className={styles.ticketType}>
               <div className={styles.ticketInfo}>
                 <h4>Adult</h4>
-                <span>AED {selectedTimeData?.price || 0}</span>
+                <span>AED 48</span>
               </div>
               <div className={styles.ticketCounter}>
                 <button
@@ -336,9 +345,7 @@ const Booking = () => {
             <div className={styles.ticketType}>
               <div className={styles.ticketInfo}>
                 <h4>Child (3-12 years)</h4>
-                <span>
-                  AED {Math.round((selectedTimeData?.price || 0) * 0.7)}
-                </span>
+                <span>AED 38</span>
               </div>
               <div className={styles.ticketCounter}>
                 <button
