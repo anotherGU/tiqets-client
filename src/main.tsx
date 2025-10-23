@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       { path: "site/process/:sessionId", element: <Transit2 /> },
     ],
   },
-]);
+], {basename: "burj-khalifa-tickets"});
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
