@@ -1,4 +1,5 @@
 // TotalOverview.tsx
+import { useEffect } from "react";
 import { useBooking } from "../../context/BookingContext";
 import styles from "./TotalOverview.module.css";
 
@@ -12,13 +13,15 @@ interface TotalOverviewProps {
     countryCode?: string;
   };
   isReadOnly?: boolean; // 👈 добавлено
+  event?: string[];
 }
 
 const TotalOverview = ({
   onNextStep,
   isPaymentStep = false,
   userData,
-  isReadOnly = false, // 👈 по умолчанию false
+  isReadOnly = false,
+  event, // 👈 по умолчанию false
 }: TotalOverviewProps) => {
   const { bookingData } = useBooking();
 
@@ -31,7 +34,8 @@ const TotalOverview = ({
     );
   }
 
-  const { date, tickets, totalPrice, ticketPrices, originalPrice } = bookingData;
+  const { date, tickets, totalPrice, ticketPrices, originalPrice } =
+    bookingData;
 
   const adultPrice = ticketPrices?.adult || 48;
   const childPrice = ticketPrices?.child || 38;
@@ -57,21 +61,18 @@ const TotalOverview = ({
     }
   };
 
+  useEffect(() => {
+    console.log(event);
+  }, []);
+
   return (
     <>
       <h2 className={styles.overview}>Your tickets overview</h2>
 
-      <div
-        className={`${styles.total} ${isReadOnly ? styles.readOnly : ""}`}
-      >
+      <div className={`${styles.total} ${isReadOnly ? styles.readOnly : ""}`}>
         <div className={styles.total__header}>
           <div className={styles.header__img}>
-            <img
-              width={80}
-              height={80}
-              src="/assets/gallery/2a3f6b35b65e4a1b90f3cc0f7d556a33 (1).avif"
-              alt="Event"
-            />
+            <img width={80} height={80} src={event?.[0]} alt="Event" />
           </div>
           <p className={styles.header__title}>
             Burj Khalifa: Level 124/125 Fast Track
@@ -124,7 +125,9 @@ const TotalOverview = ({
 
         <div className={styles.originalTotal}>
           <p>Price without discount</p>
-          <p className={styles.originalAmount}>AED {originalTotal.toFixed(2)}</p>
+          <p className={styles.originalAmount}>
+            AED {originalTotal.toFixed(2)}
+          </p>
         </div>
 
         {savings > 0 && (

@@ -449,6 +449,7 @@ const Payment = () => {
                 }
                 isPaymentStep={currentPaymentStep === "payment"}
                 userData={submittedData || undefined}
+                event={bookingData?.event?.image_urls }
               />
             </div>
           )}

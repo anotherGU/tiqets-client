@@ -25,7 +25,7 @@ interface BookingData {
   };
   totalPrice: number;
   originalPrice?: number;
-  event?: {
+  event: {
     id: string;
     title: string;
     location: string;
@@ -49,6 +49,19 @@ const BOOKING_DATA_KEY = "bookingData";
 
 export const BookingProvider = ({ children }: { children: React.ReactNode }) => {
   const [bookingData, setBookingDataState] = useState<BookingData | null>(null);
+
+
+  useEffect(() => {
+  const savedBookingData = localStorage.getItem(BOOKING_DATA_KEY);
+  if (savedBookingData) {
+    try {
+      const parsedData = JSON.parse(savedBookingData);
+      setBookingDataState(parsedData);
+    } catch (error) {
+      console.error("Error parsing booking data from localStorage:", error);
+    }
+  }
+}, []);
 
   useEffect(() => {
     const handleStorageChange = () => {

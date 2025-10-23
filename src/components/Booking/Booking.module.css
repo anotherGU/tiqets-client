@@ -425,6 +425,10 @@
   line-height: 1.75rem;
 }
 
+.guided_price {
+  margin-bottom: 10px;
+}
+
 @media (max-width: 768px) {
   .wrapper__booking {
     position: relative;

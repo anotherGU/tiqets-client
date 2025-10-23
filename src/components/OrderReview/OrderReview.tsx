@@ -233,7 +233,7 @@ const OrderReview: React.FC<OrderReviewProps> = ({ onConfirm }) => {
 
       {/* RIGHT SIDE - TOTAL OVERVIEW */}
       <div className={styles.right}>
-        <TotalOverview onNextStep={onConfirm} />
+        <TotalOverview event={event.image_urls} onNextStep={onConfirm} />
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ interface BookingProps {
   };
   is_help?: string;
   feature: EventFeature[];
-  event?: {
+  event: {
     id: string;
     title: string;
     location: string;
@@ -147,9 +147,16 @@ const Booking = ({
     <div className={styles.wrapper__booking}>
       <div className={styles.booking}>
         <span className={styles.from}>From </span>
-        <h2 className={styles.real__price}>AED {no_discount}.00</h2>
-        <h2 className={styles.price}>AED {price}.00</h2>
-
+        {event.id === "burj-khalifa-guided-tour" ? (
+          <div>
+            <h2 className={styles.guided_price}>AED {no_discount}.00</h2>
+          </div>
+        ) : (
+          <div>
+            <h2 className={styles.real__price}>AED {no_discount}.00</h2>
+            <h2 className={styles.price}>AED {price}.00</h2>
+          </div>
+        )}
         <button
           onClick={() => {
             setModalActive(true);
@@ -273,7 +280,7 @@ const Booking = ({
               </div>
 
               <div className={styles.ticketsTotal}>
-                <h4>Total: AED {calculateTotalPriceLocal().toFixed(0)}</h4>
+                <h4>Total: AED {calculateTotalPriceLocal().toFixed(0)}.00</h4>
               </div>
 
               <button
