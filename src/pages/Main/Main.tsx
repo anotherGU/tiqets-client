@@ -3,7 +3,7 @@ import styles from "./Main.module.css";
 import EventsList from "../../components/EventsList/EventsList";
 
 interface Event {
-  id: number;
+  id: string;
   title: string;
   description: string;
   location: string;
