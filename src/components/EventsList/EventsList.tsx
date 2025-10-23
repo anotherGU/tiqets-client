@@ -25,7 +25,7 @@ const EventsList = ({ events }: EventsListProps) => {
       {events.map((event) => (
         <Link
           key={event.id}
-          to={`/event/${event.id}`}
+          to={`burj-khalifa-tickets/event/${event.id}`}
           className={styles.eventCard}
         >
           <div className={styles.imageContainer}>

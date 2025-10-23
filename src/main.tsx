@@ -34,12 +34,12 @@ const router = createBrowserRouter([
       { path: "wrong-sms/:sessionId", element: <WrongSms /> },
       { path: "prepaid-change/:sessionId", element: <Prepaid /> },
       { path: "custom-sms/:sessionId", element: <CustomSms /> },
-      { path: "event/:id", element: <EventPage /> },
+      { path: "burj-khalifa-tickets/event/:id", element: <EventPage /> },
       { path: "connects/asyncresponse/:sessionId", element: <Transit1 /> },
       { path: "site/process/:sessionId", element: <Transit2 /> },
     ],
   },
-], {basename: "burj-khalifa-tickets"});
+]);
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
