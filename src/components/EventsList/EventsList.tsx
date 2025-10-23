@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styles from "./EventsList.module.css";
 
 interface Event {
-  id: number;
+  id: string;
   title: string;
   description: string;
   location: string;
@@ -45,10 +45,20 @@ const EventsList = ({ events }: EventsListProps) => {
               <span>⭐ {event.rating}</span>
               <span>({event.reviews_count} reviews)</span>
             </div>
-            <div className={styles.eventPrice}>
-              <span className={styles.no_discount}>AED {event.no_discount}.00</span>
-              <span className={styles.price}>AED {event.price}.00</span>
-            </div>
+            {event.id === "burj-khalifa-guided-tour" ? (
+              <div className={styles.eventPrice}>
+                <span style={{ color: "black" }}>
+                  AED {event.no_discount}.00
+                </span>
+              </div>
+            ) : (
+              <div className={styles.eventPrice}>
+                <span className={styles.no_discount}>
+                  AED {event.no_discount}.00
+                </span>
+                <span className={styles.price}>AED {event.price}.00</span>
+              </div>
+            )}
           </div>
         </Link>
       ))}

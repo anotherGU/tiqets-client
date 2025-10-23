@@ -147,7 +147,6 @@ const OrderReview: React.FC<OrderReviewProps> = ({ onConfirm }) => {
 
           <div className={styles.infoBox}>
             <ul>
-              <li>The selected timeslot is for the Burj Khalifa</li>
               <li>Infants (0-2) are free of charge</li>
             </ul>
           </div>

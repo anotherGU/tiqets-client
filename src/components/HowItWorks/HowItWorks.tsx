@@ -34,9 +34,7 @@ const HowItWorks: React.FC = () => {
         <div className={styles.icon}>3</div>
         <div>
           <h3 className={styles.subtitle}>Get your tickets</h3>
-          <p className={styles.text}>
-            Check your email for your digital tickets
-          </p>
+          <p className={styles.text}>Download digital tickets after payment.</p>
         </div>
       </div>
 
