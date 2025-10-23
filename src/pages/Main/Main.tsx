@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import styles from "./Main.module.css";
-import { CiSearch } from "react-icons/ci";
-import { TfiTicket } from "react-icons/tfi";
 import EventsList from "../../components/EventsList/EventsList";
 
 interface Event {
@@ -9,53 +7,50 @@ interface Event {
   title: string;
   description: string;
   location: string;
+  no_discount: number;
   price: number;
   rating: number;
   reviews_count: number;
   category: string;
   image_urls: string[];
+  is_help: string;
+  full_description: string;
 }
-
 
 const Main = () => {
   const [events, setEvents] = useState<Event[]>([]);
-const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-useEffect(() => {
-  fetchEvents();
-}, []);
+  useEffect(() => {
+    fetchEvents();
+  }, []);
 
-const fetchEvents = async () => {
-  try {
-    const response = await fetch("/api/events");
-    const data = await response.json();
-    setEvents(data);
-  } catch (error) {
-    console.error("Error fetching events:", error);
-  } finally {
-    setLoading(false);
-  }
-};
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  const fetchEvents = async () => {
+    try {
+      const response = await fetch("/api/events");
+      const data = await response.json();
+      setEvents(data);
+    } catch (error) {
+      console.error("Error fetching events:", error);
+    } finally {
+      setLoading(false);
+    }
+
+  };
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
         <div className="container">
           <div className={styles.content}>
-            <h1 className={styles.title}>
-              Discover the world’s <br /> best experiences
-            </h1>
-            <div className={styles.inputWrapper}>
-              <CiSearch className={styles.search__ico} />
-              <input
-                className={styles.search}
-                type="text"
-                placeholder="Search destinations & experiences"
-              />
-            </div>
-            <div className={styles.end__row}>
-              <TfiTicket color="white" />
-              <p className={styles.end}>
-                More than 50 million happy travelers booked with Tiqets
+            <div className={styles.inside}>
+              <h1 className={styles.title}>Burj Khalifa Tickets</h1>
+              <p>
+                Enjoy the views of Dubai from the top of the world's tallest
+                building!
               </p>
             </div>
           </div>

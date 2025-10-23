@@ -7,6 +7,7 @@ interface Event {
   title: string;
   description: string;
   location: string;
+  no_discount: number;
   price: number;
   rating: number;
   reviews_count: number;
@@ -22,13 +23,13 @@ const EventsList = ({ events }: EventsListProps) => {
   return (
     <div className={styles.eventsGrid}>
       {events.map((event) => (
-        <Link 
-          key={event.id} 
-          to={`/event/${event.id}`} 
+        <Link
+          key={event.id}
+          to={`/event/${event.id}`}
           className={styles.eventCard}
         >
           <div className={styles.imageContainer}>
-            <img 
+            <img
               src={event.image_urls[0]} // Берем первую картинку для превью
               alt={event.title}
               className={styles.eventImage}
@@ -45,7 +46,8 @@ const EventsList = ({ events }: EventsListProps) => {
               <span>({event.reviews_count} reviews)</span>
             </div>
             <div className={styles.eventPrice}>
-              <span>From AED {event.price}</span>
+              <span className={styles.no_discount}>AED {event.no_discount}.00</span>
+              <span className={styles.price}>AED {event.price}.00</span>
             </div>
           </div>
         </Link>

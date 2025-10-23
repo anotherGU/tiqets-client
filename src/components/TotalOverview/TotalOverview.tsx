@@ -8,9 +8,8 @@ interface TotalOverviewProps {
 }
 
 const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps) => {
- const { bookingData } = useBooking();
+  const { bookingData } = useBooking();
 
-  // Показываем заглушку, если данных нет
   if (!bookingData) {
     return (
       <div className={styles.overview}>
@@ -20,7 +19,23 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
     );
   }
 
-  const { date, tickets, totalPrice } = bookingData;
+  const { date, tickets, totalPrice, ticketPrices, originalPrice } = bookingData;
+
+  const adultPrice = ticketPrices?.adult || 48;
+  const childPrice = ticketPrices?.child || 38;
+
+  // Расчет полной стоимости без скидки
+  const calculateOriginalTotal = (): number => {
+    if (originalPrice) {
+      const totalTickets = tickets.adult + tickets.child;
+      return originalPrice * totalTickets;
+    }
+    // Fallback расчет
+    return (tickets.adult * 48) + (tickets.child * 38);
+  };
+
+  const originalTotal = calculateOriginalTotal();
+  const savings = originalTotal - totalPrice;
 
   const handleClick = (e: React.MouseEvent) => {
     if (onNextStep) {
@@ -65,21 +80,6 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
               </svg>
               {date}
             </p>
-            {/* <p className={styles.header__time}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                aria-labelledby="icon-FkbUbdMRFguwH1hDN_Vpf"
-                className="mr-2 fill-current stroke-current stroke-0 duration-150 ease-in-out"
-                width="16"
-                height="16"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22zm.917 11.11a.917.917 0 0 1-.917.917H7.001a.917.917 0 0 1 0-1.834h4.082V4.667a.917.917 0 0 1 1.834 0z"></path>
-              </svg>
-              {time?.time}
-            </p> */}
             <div className={styles.refundable}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -100,27 +100,44 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
             <div className={styles.adults}>
               <div className={styles.eminem}>
                 <p className={styles.quantity}>{tickets.adult}</p>
-                <p>Adult (AED 48.00)</p>
+                <p>Adult (AED {adultPrice.toFixed(2)})</p>
               </div>
-                <p className={styles.amount}> AED {tickets.adult * 48}.00</p>
+              <p className={styles.amount}>AED {(tickets.adult * adultPrice).toFixed(2)}</p>
             </div>
             <div className={styles.child}>
               <div className={styles.eminem}>
                 <p className={styles.quantity}>{tickets.child}</p>
-                <p>Child (AED 38.00)</p>
+                <p>Child (AED {childPrice.toFixed(2)})</p>
               </div>
-              <p className={styles.amount}> AED {tickets.child * 38}.00</p>
+              <p className={styles.amount}>AED {(tickets.child * childPrice).toFixed(2)}</p>
             </div>
           </div>
+          
+          {/* Полная цена без скидки */}
+          <div className={styles.originalTotal}>
+            <p>Price without discount</p>
+            <p className={styles.originalAmount}>AED {originalTotal.toFixed(2)}</p>
+          </div>
+          
+          {/* Экономия */}
+          {savings > 0 && (
+            <div className={styles.savings}>
+              <p>Your savings</p>
+              <p className={styles.savingsAmount}>-AED {savings.toFixed(2)}</p>
+            </div>
+          )}
+          
+          {/* Итоговая цена */}
           <div className={styles.total__footer}>
             <p>Price</p>
-            <p> AED {totalPrice}.00</p>
+            <p>AED {totalPrice.toFixed(2)}</p>
           </div>
         </div>
         <div className={styles.next}>
           <div>
             <h2>Total price</h2>
-            <h2>AED {totalPrice}.00</h2>
+            <h2 >AED {totalPrice.toFixed(2)}</h2>
+
           </div>
           <button 
             className={styles.next__btn} 

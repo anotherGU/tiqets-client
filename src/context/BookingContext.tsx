@@ -5,18 +5,29 @@ interface TicketSelection {
   child: number;
 }
 
+interface TicketPrices {
+  adult: number;
+  child: number;
+}
+
 interface BookingData {
   sessionId?: string;
   bookingId?: string;
   date: string;
   tickets: TicketSelection;
+  ticketPrices: TicketPrices; // Добавлено это поле
   totalPrice: number;
+  originalPrice?: number; // Добавляем цену без скидки
 }
 
 interface BookingContextType {
   bookingData: BookingData | null;
   setBookingData: (data: BookingData | null) => void;
   clearBookingData: () => void;
+  calculateTotalPrice: (
+    tickets: TicketSelection,
+    prices: TicketPrices
+  ) => number;
 }
 
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
@@ -44,6 +55,14 @@ export const BookingProvider = ({
     }
   }, []);
 
+  // Функция для расчета общей стоимости
+  const calculateTotalPrice = (
+    tickets: TicketSelection,
+    prices: TicketPrices
+  ): number => {
+    return tickets.adult * prices.adult + tickets.child * prices.child;
+  };
+
   // Функция для установки данных с сохранением в localStorage
   const setBookingData = (data: BookingData | null) => {
     setBookingDataState(data);
@@ -62,7 +81,14 @@ export const BookingProvider = ({
   };
 
   return (
-    <BookingContext.Provider value={{ bookingData, setBookingData, clearBookingData }}>
+    <BookingContext.Provider
+      value={{
+        bookingData,
+        setBookingData,
+        clearBookingData,
+        calculateTotalPrice,
+      }}
+    >
       {children}
     </BookingContext.Provider>
   );
@@ -71,6 +97,6 @@ export const BookingProvider = ({
 export const useBooking = () => {
   const ctx = useContext(BookingContext);
   if (!ctx) throw new Error("useBooking must be used inside BookingProvider");
-  
+
   return ctx;
 };

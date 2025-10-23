@@ -144,6 +144,40 @@
   background-color: #881e73;
 }
 
+/* TotalOverview.module.css */
+.originalTotal {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e5e5;
+  text-decoration: line-through;
+  color: #888;
+}
+
+.originalAmount {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.savings {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e5e5;
+  background-color: #f8fff8;
+}
+
+.savingsAmount {
+  color: #ff0000;
+  font-weight: bold;
+}
+
+.savingsText {
+  color: #ff0000;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
 @media (max-width: 768px) {
   .total {
     border: 1px solid var(--border-color);
@@ -177,6 +211,4 @@
     width: 70px;
     height: 70px;
   }
-
-
 }

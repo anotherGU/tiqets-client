@@ -1,5 +1,5 @@
 .header {
-  width: 100%;
+  width: 1200px;
   height: 400px;
   background: linear-gradient(
       180deg,
@@ -8,13 +8,33 @@
       rgba(4, 9, 26, 0.54) 35%,
       rgba(4, 9, 26, 0.6) 100%
     ),
-    url("/assets/main/header/download.avif") no-repeat center/cover;
+    url("/assets/main/header/burj-main.avif") no-repeat center/cover;
   z-index: 0;
+  margin: 15px auto;
+  border-radius: 0.75rem;
 }
 
 .header .content {
   padding-top: 100px;
   z-index: 2;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+}
+
+.inside {
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.inside p {
+  font-size: 1rem;
+  color: white;
+  font-weight: 700;
 }
 
 .title {

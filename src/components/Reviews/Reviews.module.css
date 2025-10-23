@@ -1,0 +1,159 @@
+.reviewsSection {
+  font-family: Inter, Arial, sans-serif;
+  max-width: 780px;
+  color: #1a1a1a;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.summaryBox {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 24px;
+}
+
+.averageBox {
+  text-align: left;
+}
+
+.averageValue {
+  font-size: 48px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1;
+}
+
+.stars {
+  font-size: 22px;
+  color: #fbbc05;
+}
+
+.total {
+  color: #666;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #333;
+}
+
+.starLabel {
+  width: 20px;
+  text-align: right;
+  font-weight: 500;
+}
+
+.bar {
+  flex: 1;
+  height: 10px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar div {
+  height: 100%;
+  background: #fbbc05;
+  transition: width 0.4s ease;
+}
+
+.count {
+  width: 30px;
+  text-align: left;
+  color: #555;
+}
+
+.reviewCard {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  margin-top: 20px;
+  background: #fff;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  background: #1e3a8a;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.reviewContent {
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.name {
+  font-weight: 600;
+  color: #111;
+}
+
+.date {
+  color: #666;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.rating {
+  color: #fbbc05;
+  font-size: 18px;
+  margin: 6px 0 8px;
+}
+
+.text {
+  font-size: 15px;
+  color: #222;
+  margin-bottom: 10px;
+  line-height: 1.5;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+.likeBtn {
+  background: none;
+  border: none;
+  color: #1e3a8a;
+  cursor: pointer;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.likeBtn:hover {
+  color: #0b277f;
+}

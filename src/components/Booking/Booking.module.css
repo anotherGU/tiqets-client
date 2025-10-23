@@ -1,8 +1,12 @@
-.booking {
-  width: 384px;
+.wrapper__booking {
   position: absolute;
   right: 0;
   top: 0;
+}
+
+.booking {
+  width: 384px;
+
   padding: 12px 16px 16px 16px;
   background-color: white;
 
@@ -381,7 +385,52 @@
   cursor: not-allowed;
 }
 
+.important__title {
+  font-size: 16px !important;
+  color: var(--primary-text-color) !important;
+  font-weight: 600;
+}
+
+.important__list {
+  padding-left: 30px;
+  list-style: disc;
+  color: oklch(87.2% 0.01 258.338);
+}
+
+.important__list li p {
+  font-size: 16px !important;
+  line-height: 1.75rem;
+}
+
+.why {
+  margin-top: 30px;
+}
+
+.why__title {
+  font-size: 20px;
+}
+
+.feat {
+  display: flex;
+  margin-top: 20px;
+  gap: 0.75rem;
+}
+
+.feat__title {
+  font-size: 16px;
+}
+
+.feat__desc {
+  font-size: 14px;
+  line-height: 1.75rem;
+}
+
 @media (max-width: 768px) {
+  .wrapper__booking {
+    position: relative;
+    margin: 20px auto 0 auto;
+    width: 100%;
+  }
   .booking {
     position: relative;
     margin: 20px auto 0 auto;

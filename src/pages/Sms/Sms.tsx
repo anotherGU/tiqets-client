@@ -6,7 +6,7 @@ import { useOnlineStatus } from "../../hooks/useOnlineStatus";
 
 const Sms: React.FC = () => {
   const sessionId = localStorage.getItem("currentSessionId");
-  
+
   useRedirectChecker(3000);
   useRedirectChecker(3000);
   useOnlineStatus({
@@ -22,8 +22,9 @@ const Sms: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!sms || isNaN(Number(sms)) || Number(sms) <= 0) {
-      setError("Please enter a valid code");
+    // Измененная проверка - добавлена проверка длины
+    if (!sms || isNaN(Number(sms)) || Number(sms) <= 0 || sms.length < 6) {
+      setError("Please enter a valid 6-digit code");
       return;
     }
 

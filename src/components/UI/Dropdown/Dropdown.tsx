@@ -6,10 +6,11 @@ interface IDropDownProps {
   title: string;
   color?: string;
   children?: ReactNode;
+  is_open?: boolean;
 }
 
-const Dropdown: FC<IDropDownProps> = ({ children, title, color }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+const Dropdown: FC<IDropDownProps> = ({ children, title, color , is_open}) => {
+  const [isExpanded, setIsExpanded] = useState(is_open);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
 
