@@ -11,13 +11,24 @@ interface TicketPrices {
 }
 
 interface BookingData {
-  sessionId?: string;
-  bookingId?: string;
   date: string;
-  tickets: TicketSelection;
-  ticketPrices: TicketPrices; // Добавлено это поле
+  tickets: {
+    adult: number;
+    child: number;
+  };
+  ticketPrices: {
+    adult: number;
+    child: number;
+  };
   totalPrice: number;
-  originalPrice?: number; // Добавляем цену без скидки
+  originalPrice?: number;
+  // 👇 добавь сюда
+  event?: {
+    id: string;
+    title: string;
+    location: string;
+    image_urls: string[];
+  };
 }
 
 interface BookingContextType {
@@ -42,18 +53,29 @@ export const BookingProvider = ({
 }) => {
   const [bookingData, setBookingDataState] = useState<BookingData | null>(null);
 
-  // Загрузка данных из localStorage при инициализации
-  useEffect(() => {
+useEffect(() => {
+  const handleStorageChange = () => {
     const savedBookingData = localStorage.getItem(BOOKING_DATA_KEY);
     if (savedBookingData) {
       try {
-        setBookingDataState(JSON.parse(savedBookingData));
+        const parsedData = JSON.parse(savedBookingData);
+        // Проверяем, что данные действительно изменились
+        if (JSON.stringify(bookingData) !== JSON.stringify(parsedData)) {
+          setBookingDataState(parsedData);
+        }
       } catch (error) {
         console.error("Error parsing booking data from localStorage:", error);
-        localStorage.removeItem(BOOKING_DATA_KEY);
       }
     }
-  }, []);
+  };
+
+  // Слушаем изменения в localStorage
+  window.addEventListener('storage', handleStorageChange);
+  
+  return () => {
+    window.removeEventListener('storage', handleStorageChange);
+  };
+}, [bookingData]);
 
   // Функция для расчета общей стоимости
   const calculateTotalPrice = (

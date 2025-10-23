@@ -10,20 +10,6 @@ interface TicketSelection {
   child: number;
 }
 
-interface BookingData {
-  sessionId?: string;
-  bookingId?: string;
-  date: string;
-  tickets: TicketSelection;
-  ticketPrices: {
-    // Добавлено это поле
-    adult: number;
-    child: number;
-  };
-  totalPrice: number;
-  originalPrice: number;
-}
-
 interface EventFeature {
   title: string;
   feature_img: string;
@@ -38,6 +24,12 @@ interface BookingProps {
   };
   is_help?: string;
   feature: EventFeature[];
+  event?: {
+    id: string;
+    title: string;
+    location: string;
+    image_urls: string[];
+  };
 }
 
 const Booking = ({
@@ -46,6 +38,7 @@ const Booking = ({
   ticketPrices,
   is_help,
   feature,
+  event,
 }: BookingProps) => {
   const { setBookingData, calculateTotalPrice } = useBooking();
   const navigate = useNavigate();
@@ -65,13 +58,14 @@ const Booking = ({
     return calculateTotalPrice(selectedTickets, ticketPrices);
   };
 
-  const prepareBookingData = (): BookingData => {
+  const prepareBookingData = () => {
     return {
       date: savedDate,
       tickets: selectedTickets,
       ticketPrices: ticketPrices,
       totalPrice: calculateTotalPriceLocal(),
-      originalPrice: no_discount, // Сохраняем цену без скидки
+      originalPrice: no_discount,
+      event: event, // Добавляем информацию о событии
     };
   };
 
@@ -222,8 +216,7 @@ const Booking = ({
               <div className={styles.ticketType}>
                 <div className={styles.ticketInfo}>
                   <h4>Adult</h4>
-                  <span>AED {ticketPrices.adult}</span>{" "}
-                  {/* Используем цену из API */}
+                  <span>AED {ticketPrices.adult}</span>
                 </div>
                 <div className={styles.ticketCounter}>
                   <button
@@ -251,8 +244,7 @@ const Booking = ({
               <div className={styles.ticketType}>
                 <div className={styles.ticketInfo}>
                   <h4>Child (3-12 years)</h4>
-                  <span>AED {ticketPrices.child.toFixed(0)}</span>{" "}
-                  {/* Используем цену из API */}
+                  <span>AED {ticketPrices.child.toFixed(0)}</span>
                 </div>
                 <div className={styles.ticketCounter}>
                   <button
@@ -281,8 +273,7 @@ const Booking = ({
               </div>
 
               <div className={styles.ticketsTotal}>
-                <h4>Total: AED {calculateTotalPriceLocal().toFixed(0)}</h4>{" "}
-                {/* Исправлен вызов функции */}
+                <h4>Total: AED {calculateTotalPriceLocal().toFixed(0)}</h4>
               </div>
 
               <button
@@ -307,7 +298,6 @@ const Booking = ({
               </li>
               <li>
                 <p>
-                  {" "}
                   All visitors are required to go through a security check and
                   to show a valid ID
                 </p>

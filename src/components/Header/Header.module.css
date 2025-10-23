@@ -1,9 +1,8 @@
+/* Updated Header.module.css */
 header {
   min-width: 100%;
-  height: 80px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   box-shadow: 0px -6px 4px 8px rgba(34, 51, 102, 0.15);
   -webkit-box-shadow: 0px -6px 4px 8px rgba(34, 51, 102, 0.15);
   -moz-box-shadow: 0px -6px 4px 8px rgba(34, 51, 102, 0.15);
@@ -15,14 +14,30 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 0;
+  position: relative;
+}
+
+.main {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.stepperContainer {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 600px;
 }
 
 .toolbar {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 14px;
-  font-weight: 700;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .logo {
@@ -30,6 +45,7 @@ header {
   width: 110px;
   height: 42px;
 }
+
 .sign__in,
 .language,
 .help {
@@ -40,10 +56,38 @@ header {
 }
 
 @media (max-width: 768px) {
-  header{
+  header {
     width: 100%;
   }
+
   header p {
     display: none;
+  }
+
+  .logo{
+    width: 62px;
+    height: 32px;
+  }
+
+  .stepperContainer {
+    display: flex; /* ПОКАЗЫВАТЬ НА МОБИЛКАХ */
+
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .wrapper {
+    padding: 5px 0;
+  
+  }
+
+  .main {
+    position: static;
+    transform: none;
+  }
+
+  .toolbar {
+    position: static;
+    transform: none;
   }
 }

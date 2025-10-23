@@ -1,0 +1,373 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding: 40px 20px;
+  max-width: 1400px;
+  margin: 15px auto;
+}
+
+.left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 800px;
+}
+
+.right {
+  width: 420px;
+  position: sticky;
+  top: 40px;
+}
+
+/* === EVENT CARD === */
+.eventCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.eventInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.eventTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.moreInfoBtn {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.moreInfoBtn:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.eventImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+/* === SECTIONS === */
+.section {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 16px 0;
+}
+
+/* === DATE & TIME === */
+.dateTimeItem {
+  margin-top: 8px;
+  position: relative;
+}
+
+.dropdown {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 14px 16px;
+  font-size: 15px;
+  color: #1f2937;
+  background: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dropdown:hover {
+  border-color: #9ca3af;
+  background-color: #f9fafb;
+}
+
+.dropdownIcon {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+}
+
+.dropdown span {
+  flex: 1;
+  font-weight: 400;
+}
+
+.chevron {
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+.timeNote {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 12px 0;
+  line-height: 1.5;
+}
+
+/* === DATE PICKER === */
+.datePicker {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.dateOption {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+  color: #374151;
+}
+
+.dateOption:hover {
+  background-color: #f3f4f6;
+}
+
+.dateOptionActive {
+  background-color: #eff6ff;
+  color: #2563eb;
+  font-weight: 500;
+}
+
+/* === INFO BOX === */
+.infoBox {
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 14px;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.infoBox ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.infoBox li {
+  margin-bottom: 6px;
+}
+
+.infoBox li:last-child {
+  margin-bottom: 0;
+}
+
+/* === TICKET PANEL === */
+.ticketPanel {
+  margin-top: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  overflow: hidden;
+}
+
+.ticketRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.ticketRow:last-child {
+  border-bottom: none;
+}
+
+.ticketRowLeft {
+  flex: 1;
+}
+
+.ticketRowTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.ticketRowAge {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 2px 0;
+}
+
+.ticketRowNote {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 4px 0;
+}
+
+.ticketRowPrice {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 4px 0 0 0;
+}
+
+.ticketRowRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ticketBtn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  color: #1f2937;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.ticketBtn:hover:not(:disabled) {
+  background-color: #1e3a8a;
+  color: white;
+  border-color: #1e3a8a;
+}
+
+.ticketBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ticketCount {
+  min-width: 50px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e3a8a;
+  background-color: #1e3a8a;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
+/* === EMPTY STATE === */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #374151;
+  gap: 16px;
+}
+
+.empty button {
+  background-color: #8b5cf6;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.empty button:hover {
+  background-color: #7c3aed;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .right {
+    width: 100%;
+    max-width: 600px;
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    padding: 20px 16px;
+  }
+
+  .eventCard {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .eventImage {
+    margin-left: 0;
+    width: 100%;
+    height: 200px;
+  }
+
+  .section {
+    padding: 20px;
+  }
+
+  .ticketRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .ticketRowRight {
+    align-self: flex-end;
+  }
+}

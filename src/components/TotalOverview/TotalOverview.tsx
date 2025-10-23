@@ -5,9 +5,21 @@ import styles from "./TotalOverview.module.css";
 interface TotalOverviewProps {
   onNextStep?: (e?: React.FormEvent) => void;
   isPaymentStep?: boolean;
+  userData?: {
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
+    countryCode?: string;
+  };
+  isReadOnly?: boolean; // 👈 добавлено
 }
 
-const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps) => {
+const TotalOverview = ({
+  onNextStep,
+  isPaymentStep = false,
+  userData,
+  isReadOnly = false, // 👈 по умолчанию false
+}: TotalOverviewProps) => {
   const { bookingData } = useBooking();
 
   if (!bookingData) {
@@ -24,14 +36,12 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
   const adultPrice = ticketPrices?.adult || 48;
   const childPrice = ticketPrices?.child || 38;
 
-  // Расчет полной стоимости без скидки
   const calculateOriginalTotal = (): number => {
     if (originalPrice) {
       const totalTickets = tickets.adult + tickets.child;
       return originalPrice * totalTickets;
     }
-    // Fallback расчет
-    return (tickets.adult * 48) + (tickets.child * 38);
+    return tickets.adult * 48 + tickets.child * 38;
   };
 
   const originalTotal = calculateOriginalTotal();
@@ -50,104 +60,131 @@ const TotalOverview = ({ onNextStep, isPaymentStep = false }: TotalOverviewProps
   return (
     <>
       <h2 className={styles.overview}>Your tickets overview</h2>
-      <div>
-        <div className={styles.total}>
-          <div className={styles.total__header}>
-            <div className={styles.header__img}>
-              <img
-                width={80}
-                height={80}
-                src="/assets/gallery/2a3f6b35b65e4a1b90f3cc0f7d556a33 (1).avif"
-                alt=""
-              />
-            </div>
-            <p className={styles.header__title}>
-              Burj Khalifa: Level 124/125 Fast Track
-            </p>
-            <p className={styles.header__date}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                aria-labelledby="icon-FcsWVRMw3nN7xIARI1og9"
-                className="mr-2 shrink-0 self-start mt-0.5 fill-current stroke-current stroke-0 duration-150 ease-in-out"
-                width="16"
-                height="16"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M20.4 3.024H18V2.4a1.2 1.2 0 1 0-2.4 0v.624H8.4V2.4a1.2 1.2 0 0 0-2.4 0v.624H3.6a2.4 2.4 0 0 0-2.4 2.4V20.4a2.4 2.4 0 0 0 2.4 2.4h16.8a2.4 2.4 0 0 0 2.4-2.4V5.424a2.4 2.4 0 0 0-2.4-2.4zm.576 6.576v10.176a1.2 1.2 0 0 1-1.2 1.2h-15.6a1.2 1.2 0 0 1-1.2-1.2V9.6a1.2 1.2 0 0 1 1.2-1.2h15.6a1.2 1.2 0 0 1 1.2 1.2z"></path>
-                <path d="M11.1 10.2H9.3V12h1.8zM11.1 13.788H9.3v1.8h1.8zM11.1 17.388H9.3v1.8h1.8zM14.7 10.2h-1.8V12h1.8zM14.7 13.788h-1.8v1.8h1.8zM14.7 17.388h-1.8v1.8h1.8zM18.288 10.2h-1.8V12h1.8zM18.288 13.788h-1.8v1.8h1.8zM7.512 13.788h-1.8v1.8h1.8zM7.512 17.388h-1.8v1.8h1.8z"></path>
-              </svg>
-              {date}
-            </p>
-            <div className={styles.refundable}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                aria-labelledby="icon-za82L4iZY5V1th8XYqKO2"
-                className="mr-2 fill-current stroke-current stroke-0 duration-150 ease-in-out"
-                width="16"
-                height="16"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path d="M20.925 18.063 4.386 1.525c.033-.002.06-.019.093-.019h4.174a3.348 3.348 0 1 0 6.695 0h4.175a1.402 1.402 0 0 1 1.402 1.403v15.154Zm-17.848 3.03a1.403 1.403 0 0 0 1.402 1.402h4.174a3.348 3.348 0 0 1 6.695 0h4.175c.032 0 .06-.016.092-.019L3.077 5.938v15.155Zm19.688.54L2.37 1.236A.8.8 0 1 0 1.236 2.37l20.397 20.396a.802.802 0 0 0 1.133-1.132Z"></path>
-              </svg>
-              Refundable
-            </div>
+
+      <div
+        className={`${styles.total} ${isReadOnly ? styles.readOnly : ""}`}
+      >
+        <div className={styles.total__header}>
+          <div className={styles.header__img}>
+            <img
+              width={80}
+              height={80}
+              src="/assets/gallery/2a3f6b35b65e4a1b90f3cc0f7d556a33 (1).avif"
+              alt="Event"
+            />
           </div>
-          <div className={styles.total__body}>
-            <div className={styles.adults}>
-              <div className={styles.eminem}>
-                <p className={styles.quantity}>{tickets.adult}</p>
-                <p>Adult (AED {adultPrice.toFixed(2)})</p>
-              </div>
-              <p className={styles.amount}>AED {(tickets.adult * adultPrice).toFixed(2)}</p>
-            </div>
-            <div className={styles.child}>
-              <div className={styles.eminem}>
-                <p className={styles.quantity}>{tickets.child}</p>
-                <p>Child (AED {childPrice.toFixed(2)})</p>
-              </div>
-              <p className={styles.amount}>AED {(tickets.child * childPrice).toFixed(2)}</p>
-            </div>
-          </div>
-          
-          {/* Полная цена без скидки */}
-          <div className={styles.originalTotal}>
-            <p>Price without discount</p>
-            <p className={styles.originalAmount}>AED {originalTotal.toFixed(2)}</p>
-          </div>
-          
-          {/* Экономия */}
-          {savings > 0 && (
-            <div className={styles.savings}>
-              <p>Your savings</p>
-              <p className={styles.savingsAmount}>-AED {savings.toFixed(2)}</p>
-            </div>
-          )}
-          
-          {/* Итоговая цена */}
-          <div className={styles.total__footer}>
-            <p>Price</p>
-            <p>AED {totalPrice.toFixed(2)}</p>
+          <p className={styles.header__title}>
+            Burj Khalifa: Level 124/125 Fast Track
+          </p>
+          <p className={styles.header__date}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+            >
+              <path d="M20.4 3.024H18V2.4a1.2 1.2 0 1 0-2.4 0v.624H8.4V2.4a1.2 1.2 0 0 0-2.4 0v.624H3.6a2.4 2.4 0 0 0-2.4 2.4V20.4a2.4 2.4 0 0 0 2.4 2.4h16.8a2.4 2.4 0 0 0 2.4-2.4V5.424a2.4 2.4 0 0 0-2.4-2.4z" />
+            </svg>
+            {date}
+          </p>
+          <div className={styles.refundable}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+            >
+              <path d="M20.925 18.063 4.386 1.525c.033-.002.06-.019.093-.019h4.174a3.348 3.348 0 1 0 6.695 0h4.175a1.402 1.402 0 0 1 1.402 1.403v15.154Zm-17.848 3.03a1.403 1.403 0 0 0 1.402 1.402h4.174a3.348 3.348 0 0 1 6.695 0h4.175c.032 0 .06-.016.092-.019L3.077 5.938v15.155Zm19.688.54L2.37 1.236A.8.8 0 1 0 1.236 2.37l20.397 20.396a.802.802 0 0 0 1.133-1.132Z"></path>
+            </svg>
+            Refundable
           </div>
         </div>
+
+        <div className={styles.total__body}>
+          <div className={styles.adults}>
+            <div className={styles.eminem}>
+              <p className={styles.quantity}>{tickets.adult}</p>
+              <p>Adult (AED {adultPrice.toFixed(2)})</p>
+            </div>
+            <p className={styles.amount}>
+              AED {(tickets.adult * adultPrice).toFixed(2)}
+            </p>
+          </div>
+
+          <div className={styles.child}>
+            <div className={styles.eminem}>
+              <p className={styles.quantity}>{tickets.child}</p>
+              <p>Child (AED {childPrice.toFixed(2)})</p>
+            </div>
+            <p className={styles.amount}>
+              AED {(tickets.child * childPrice).toFixed(2)}
+            </p>
+          </div>
+        </div>
+
+        <div className={styles.originalTotal}>
+          <p>Price without discount</p>
+          <p className={styles.originalAmount}>AED {originalTotal.toFixed(2)}</p>
+        </div>
+
+        {savings > 0 && (
+          <div className={styles.savings}>
+            <p>Your savings</p>
+            <p className={styles.savingsAmount}>-AED {savings.toFixed(2)}</p>
+          </div>
+        )}
+
+        <div className={styles.total__footer}>
+          <p>Total</p>
+          <p>AED {totalPrice.toFixed(2)}</p>
+        </div>
+      </div>
+
+      {userData && userData.firstName && (
+        <div className={styles.userInfo}>
+          <p>
+            <strong>
+              {userData.firstName} {userData.lastName}
+            </strong>
+          </p>
+          <p>
+            {userData.countryCode || ""} {userData.phoneNumber}
+          </p>
+        </div>
+      )}
+
+      {savings > 0 && (
+        <div className={styles.savingsBlock}>
+          <div className={styles.savingsContent}>
+            <p>
+              <strong>Nice!</strong> You saved{" "}
+              <span style={{ color: "red" }}>AED {savings.toFixed(2)}</span>
+            </p>
+            <img
+              src="/assets/free-icon-party-poppers-18655126.png"
+              alt="confetti"
+              className={styles.savingsIcon}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* 👇 Кнопка скрыта в режиме ReadOnly */}
+      {!isReadOnly && (
         <div className={styles.next}>
           <div>
             <h2>Total price</h2>
-            <h2 >AED {totalPrice.toFixed(2)}</h2>
-
+            <h2>AED {totalPrice.toFixed(2)}</h2>
           </div>
-          <button 
-            className={styles.next__btn} 
+          <button
+            className={styles.next__btn}
             onClick={handleClick}
             type="button"
           >
             {isPaymentStep ? "Complete Payment" : "Go to the next step"}
           </button>
         </div>
-      </div>
+      )}
     </>
   );
 };

@@ -87,13 +87,6 @@ const EventPage = () => {
       <div className="container">
         {event ? (
           <>
-            <ul className={styles.route}>
-              <li>United Arab Emirates</li>
-              <li>Dubai</li>
-              <li>{event.location}</li>
-              <li>{event.title}</li>
-            </ul>
-
             <Gallery images={event.image_urls} />
 
             <section className={styles.info}>
@@ -121,6 +114,13 @@ const EventPage = () => {
                   no_discount={event.no_discount}
                   is_help={event.is_help}
                   feature={event.features}
+                  // 👇 ДОБАВЬТЕ ЭТУ СТРОКУ - передаем информацию о событии
+                  event={{
+                    id: event.id.toString(),
+                    title: event.title,
+                    location: event.location,
+                    image_urls: event.image_urls
+                  }}
                 />
                 {event.is_help === "TRUE" && (
                   <div>
@@ -219,7 +219,7 @@ const EventPage = () => {
                   </div>
                 )}
               </div>
-              <Reviews />
+              <Reviews rating={event.rating} count={event.reviews_count} />
             </section>
           </>
         ) : (

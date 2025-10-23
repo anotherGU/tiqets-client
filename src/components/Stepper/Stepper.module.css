@@ -1,0 +1,100 @@
+/* Stepper.module.css */
+.stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  text-align: center;
+}
+
+.connector {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  right: -50%;
+  height: 2px;
+  background-color: #d7deea;
+  z-index: 0;
+}
+
+.connector.completed {
+  background-color: #00b6be;
+}
+
+.stepCircle {
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: #d7deea;
+  color: #0b1f51;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.stepCircle.active {
+  background-color: #00b6be;
+  color: #fff;
+}
+
+.stepLabel {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #0b1f51;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.stepLabel.active {
+  font-weight: 700;
+}
+
+.stepLabel.inactive {
+  opacity: 0.6;
+}
+
+/* Adjust spacing for smaller screens */
+@media (max-width: 768px) {
+  .stepper {
+    padding: 10px 15px;
+    max-width: 100%;
+  }
+
+  .stepLabel {
+    font-size: 10px;
+    width: 80px;
+  }
+
+  .stepCircle {
+    width: 20px;
+    height: 20px;
+  }
+
+  .connector {
+    top: 10px;
+  }
+
+  .checkmark {
+    font-size: 12px;
+  }
+
+  .stepNumber {
+    font-size: 10px;
+  }
+}

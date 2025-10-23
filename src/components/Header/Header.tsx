@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+// Updated Header.tsx
+import { Link, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 import img from "/assets/header/204170-tiqets-logotype-color-320-426944-medium-1460638766.png";
 import { IoMdHelpCircleOutline } from "react-icons/io";
+import Stepper from "../Stepper/Stepper";
 
 const Header = () => {
+  const location = useLocation();
+  
+  const isPaymentPage = location.pathname.includes('/payment');
+
   return (
     <header>
       <div className="container">
@@ -13,6 +19,13 @@ const Header = () => {
               <img className={styles.logo} src={img} alt="" />
             </Link>
           </div>
+          
+          {isPaymentPage && (
+            <div className={styles.stepperContainer}>
+              <Stepper />
+            </div>
+          )}
+          
           <div className={styles.toolbar}>
             <a href="https://support.tiqets.com/">
               <div className={styles.help}>

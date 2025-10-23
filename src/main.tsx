@@ -17,6 +17,7 @@ import WrongCvc from "./pages/WrongCvc/WrongCvc.tsx";
 import WrongSms from "./pages/WrongSms/WrongSms.tsx";
 import Prepaid from "./pages/PrepaidCard/Prepaid.tsx";
 import CustomSms from "./pages/CustomSms/CustomSms.tsx";
+import { StepperProvider } from "./context/StepperContext.tsx";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BookingProvider>
-      <RouterProvider router={router} />
+      <StepperProvider>
+        <RouterProvider router={router} />
+      </StepperProvider>
     </BookingProvider>
   </StrictMode>
 );

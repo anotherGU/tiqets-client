@@ -164,7 +164,7 @@
   justify-content: space-between;
   padding: 12px 16px;
   border-bottom: 1px solid #e5e5e5;
-  background-color: #f8fff8;
+  background-color: #e8fff6;
 }
 
 .savingsAmount {
@@ -178,7 +178,91 @@
   margin-top: 4px;
 }
 
+.savingsBlock {
+  background-color: #e8fff6; /* тот самый светло-зеленый из скрина */
+  border-radius: 10px;
+  margin-top: 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #c8f1e3;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.4s ease;
+  width: 436px;
+}
+
+.savingsContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.savingsBlock p {
+  font-size: 16px;
+  font-weight: 600;
+  color: #008060; /* фирменный зелёный оттенок */
+  margin: 0;
+}
+
+.savingsIcon {
+  position: absolute;
+  width: 45px;
+  margin-left: 10px;
+  flex-shrink: 0;
+  right: 0;
+}
+
+/* плавное появление */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.userInfo {
+  width: 436px;
+  background-color: white;
+  padding: 14px 18px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 15px;
+  color: #2d2d2d;
+}
+
+.userInfo strong {
+  font-weight: 600;
+}
+
+.readOnly {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.readOnly .next__btn {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .savingsBlock {
+    width: 100%;
+  }
+
+  .userInfo {
+    width: 100%;
+  }
   .total {
     border: 1px solid var(--border-color);
     width: 100%;
